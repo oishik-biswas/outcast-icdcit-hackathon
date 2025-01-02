@@ -5,11 +5,14 @@ import './Home.css';
 import Search from './Search';
 import TaskCard from './TaskCard';
 import CommunityCard from './CommunityCard';
+import ChatCard from './ChatCard';
+import ProgressCard from './ProgressCard';
+import CoursesCard from './CoursesCard';
 
 function Home() {
     const name="Andrew";
   return (
-    
+    <div className='bg-teal-100'>
     <div className='flex flex-col md:flex-row w-[100vw]'>
         <div className="hidden md:block fixed">
        <SideBar/>
@@ -17,7 +20,8 @@ function Home() {
        <div className="md:hidden">
          <Navbar/>
          </div>
-         <div className="main flex bg-teal-100 w-[100vw] h-[100vh] ml-[5rem] ">
+         <div className="main bg-teal-100 w-[100vw] h-auto ml-[5rem] ">
+          <div className="flex">
          <div className="ml-7 lefthand">
           <h1 className='text-[2rem]  font-bold'>Hi, {name}!</h1>
           <h3 className='font-semibold text-gray-600'>Let's look at today's activity overview</h3>
@@ -31,9 +35,16 @@ function Home() {
          </div>
          <CommunityCard/>
          </div>
-
+         </div>
+         <div className="cards flex">
+          <ChatCard/>
+          <ProgressCard/>
+          <CoursesCard/>
+          </div>
          </div>
        
+         </div>
+         
     </div>
     
   )
