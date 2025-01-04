@@ -3,7 +3,7 @@ import React from 'react'
 function CommunityCard() {
   return (
     <div>
-    <div className="w-[35vw] h-[25rem]  border-2 rounded-lg bg-[#93C572] mt-6">
+    <div className="w-[360x] h-[400px]  border-2 rounded-lg bg-[#93C572] mt-6 ml-[25px]">
          <div className="grid h-[92%]">
           <h1 className='text-4xl ml-5 text-white font-bold mt-6 outlined-text'>Community</h1>
           <div className="grid">

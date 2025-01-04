@@ -1,0 +1,13 @@
+*{
+    font-family: "Roboto", serif;
+  
+
+}
+.rightTask{
+    background-image: url('./assets/61ad43b29966ecde672a66702909263e.png');
+    background-repeat: no-repeat;
+    background-size: cover;      /* Ensures the image covers the whole container */
+    background-position: center; 
+    height: 398px; /* Set the height of the container */
+    width: 300px;
+}
