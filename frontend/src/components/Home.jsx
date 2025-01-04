@@ -12,26 +12,28 @@ import CoursesCard from './CoursesCard';
 function Home() {
     const name="Andrew";
   return (
-    <div className='bg-teal-100'>
-    <div className='flex flex-col md:flex-row w-[100vw]'>
+    <div className='bg-[#EAF6FA]'>
+    <div className='flex flex-col md:flex-row w-auto'>
         <div className="hidden md:block fixed">
        <SideBar/>
        </div>
        <div className="md:hidden">
          <Navbar/>
          </div>
-         <div className="main bg-teal-100 w-[100vw] h-auto ml-[5rem] ">
+         <div className="main bg-[#EAF6FA] w-auto h-auto ml-[5rem] ">
           <div className="flex">
          <div className="ml-7 lefthand">
-          <h1 className='text-[2rem]  font-bold'>Hi, {name}!</h1>
-          <h3 className='font-semibold text-gray-600'>Let's look at today's activity overview</h3>
+           
+          <h1 className='text-[40px]  font-bold'>Hi, {name}!</h1>
+          <h3 className='font-semibold text-gray-600 text-[15px]'>Let's look at today's activity overview</h3>
+          
           <TaskCard/>
 
        </div>
-         <div className="righthand py-[1rem] flex flex-col relative cursor-pointer h-[5rem] ml-5 ">
+         <div className="righthand py-[1rem] flex flex-col relative cursor-pointer h-[5rem] ">
           <div className="flex ">
           <Search/>
-         <button type="button" className='bg-black text-lime-300 h-[2rem] ml-4 px-4 py-2 rounded-[20px] flex items-center'>Upgrade</button>
+         <button type="button" className='bg-black text-lime-300 h-[43px] w-[150px] ml-4 px-11 rounded-[30px] flex items-center'>Upgrade</button>
          </div>
          <CommunityCard/>
          </div>
