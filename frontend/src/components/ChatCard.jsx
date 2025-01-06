@@ -1,6 +1,12 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom';
 
 function ChatCard() {
+  const navigate=useNavigate();
+  const tochat=(e)=>{
+    e.preventDefault();
+    navigate("/chatpage");
+ };
   return (
     
       <div className="w-[26vw] h-[25rem]  border-2 rounded-lg bg-white ml-[2rem] mt-[1rem]">
@@ -10,7 +16,7 @@ function ChatCard() {
 
             </div>
             <div className="btn ml-[1rem]">
-            <button className='rounded-2xl bg-black text-white justify-self-end self-end mr-5 w-[7rem] h-[2rem]'>
+            <button onClick={tochat} className='rounded-2xl bg-black text-white justify-self-end self-end mr-5 w-[7rem] h-[2rem]'>
             Chat</button>
             <p className='font-bold'>Chat now</p>
             </div>
