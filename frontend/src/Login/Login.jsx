@@ -30,8 +30,8 @@ const Login = () => {
       // Assuming the backend returns a JWT token after login
       localStorage.setItem('authToken', response.data.token);
       setSuccessMessage('Login successful!');
-      setErrors({});  // Clear errors if successful
-      navigate('/home'); // Redirect to homepage after login
+      setErrors({});  
+      navigate('/home'); 
     } catch (err) {
       if (err.response && err.response.data) {
         setErrors(err.response.data.errors || {});
