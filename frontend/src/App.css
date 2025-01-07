@@ -8,8 +8,8 @@
     background-repeat: no-repeat;
     background-size: cover;      /* Ensures the image covers the whole container */
     background-position: center; 
-    height: 398px; /* Set the height of the container */
-    width: 300px;
+    height: 395px; /* Set the height of the container */
+    width: 290px;
 }
 
 .Communitybg {
@@ -32,5 +32,9 @@
 .condesed{
     font-family:"Roboto Condensed", serif;
  
+}
+.Taskcardbg{
+    background: linear-gradient(250.31deg, #CDF0EF 1.85%, #768A8A 186.76%);
+
 }
 

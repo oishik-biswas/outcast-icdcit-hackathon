@@ -21,7 +21,7 @@ function Home() {
          <Navbar/>
          </div>
          <div className="main bg-[#EAF6FA] w-auto h-auto ml-[5rem] ">
-          <div className="flex">
+          <div className="flex ">
          <div className="ml-7 lefthand">
            
           <h1 className='text-[40px]  font-bold'>Hi, {name}!</h1>
@@ -30,10 +30,10 @@ function Home() {
           <TaskCard/>
 
        </div>
-         <div className="righthand py-[1rem] flex flex-col relative cursor-pointer h-[5rem] ">
+         <div className="righthand py-[1rem] flex flex-col cursor-pointer h-[5rem] ">
           <div className="flex ">
           <Search/>
-         <button type="button" className='bg-black text-lime-300 h-[43px] w-[150px] ml-4 px-11 rounded-[30px] flex items-center'>Upgrade</button>
+         <button type="button" className='bg-black text-lime-300 h-[43px] w-[138px] ml-3 px-10  rounded-[30px] flex items-center '>Upgrade</button>
          </div>
          <CommunityCard/>
          </div>
