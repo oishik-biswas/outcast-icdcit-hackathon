@@ -16,7 +16,7 @@ function SideBar() {
   }
   const tohome=(e)=>{
      e.preventDefault();
-     navigate("/");
+     navigate("/home");
   }
   return (
     <div className=' bg-white h-[100vh] w-[5rem] shadow-xl shadow-black'>

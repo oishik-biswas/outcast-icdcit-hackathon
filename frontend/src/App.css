@@ -11,3 +11,26 @@
     height: 398px; /* Set the height of the container */
     width: 300px;
 }
+
+.Communitybg {
+    position: relative; 
+    background-image: url('./assets/commbg.png');
+    background-size: cover;
+    background-position: center;
+}
+
+.Communitybg::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(217, 217, 217, 0.52); 
+    z-index: -1; 
+}
+.condesed{
+    font-family:"Roboto Condensed", serif;
+ 
+}
+

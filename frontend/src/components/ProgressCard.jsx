@@ -10,8 +10,9 @@ function ProgressCard() {
   return (
     <div>
        <div className="w-[26vw] h-[25rem]  border-2 rounded-lg bg-white ml-[2rem] mt-[1rem]">
-         <h1 className='text-3xl font-bold'>Progress</h1>
-         <div className="topline h-[70%] ml-[1rem]">
+         <h1 className='text-3xl font-bold text-[40px] py-[1rem] px-5 mt-[2rem]'>Progress</h1>
+         <p className='text-[15px] font-light ml-[1rem]'>AI Work model Scheduled</p>
+         <div className="topline h-[40%] ml-[1rem]">
 
          </div>
          <div className="btn ml-[1rem]">

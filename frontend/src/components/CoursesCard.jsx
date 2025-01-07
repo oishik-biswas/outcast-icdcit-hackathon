@@ -1,5 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import Coursecardimg from '../assets/Coursecard.png';
 
 function CoursesCard() {
   const navigate= useNavigate();
@@ -11,8 +12,11 @@ function CoursesCard() {
   return (
     <div>
          <div className="w-[26vw] h-[25rem]  border-2 rounded-lg bg-white ml-[2rem] mt-[1rem]">
-         <h1 className='text-3xl font-bold'>Courses</h1>
-         <div className="topline h-[70%] ml-[1rem]">
+         <h1 className='text-3xl font-bold text-[40px] px-5 py-[1rem] mt-[2rem]'>Courses</h1>
+         <p className='text-[19px] font-semibold ml-[1rem] '>Micro Courses offered to you featured by AI </p>
+         <p className='text-[15px] font-light ml-[1rem] '>This will fasten up your course with detailed study set by AI and that too for FREE!!</p>
+         <img src={Coursecardimg} alt="" srcset="" className='h-[110px] ml-[1rem]' />
+         <div className="topline  ml-[1rem]">
 
          </div>
          <div className="btn ml-[1rem]">

@@ -12,7 +12,7 @@ function ChatCard() {
       <div className="w-[26vw] h-[25rem]  border-2 rounded-lg bg-white ml-[2rem] mt-[1rem]">
         
             <div className="topline text-md h-[70%] ml-[1rem]">
-              <p className='font-bold '>Experience the goodness <br/>of Deep Communication</p>
+              <p className='font-bold px-5 py-[5rem] '>Experience the goodness <br/>of Deep Communication</p>
 
             </div>
             <div className="btn ml-[1rem]">

@@ -10,11 +10,14 @@ function CommunityCard() {
   };
   return (
     <div>
-    <div className="w-[360x] h-[400px]  border-2 rounded-lg bg-[#93C572] mt-6 ml-[25px]">
-         <div className="grid h-[92%]">
-          <h1 className='text-4xl ml-5 text-white font-bold mt-6 outlined-text'>Community</h1>
+    <div className="w-[360x] h-[400px]  border-2 rounded-lg mt-6 ml-[25px] z-0 Communitybg">
+         <div className="grid h-[92%] z-10">
+          <p className='text-4xl ml-5 text-white font-bold mt-6 '><p className='outlined-text'>Community</p>
+          <p className='text-[20px] text-[#172681]  font-medium condesed'>Join the community and enhance your skills</p>
+          </p>
+
           <div className="grid">
-          <button onClick={tocommunity} className='rounded-xl bg-black text-white justify-self-end self-end mr-7 w-[9rem] h-[2rem]'>
+          <button onClick={tocommunity} className='rounded-[30px] bg-[#95AA04] text-black font-semibold justify-self-end self-end mr-7 w-[9rem] h-[2rem]'>
           Join</button>
          
           </div>
