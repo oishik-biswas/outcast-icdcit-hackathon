@@ -8,6 +8,10 @@ function TaskCard() {
      e.preventDefault();
      navigate("/taskpage");
   };
+  const tosettask=(e)=>{  
+    e.preventDefault();
+    navigate("/settask");
+  };
   return (
     
       <div className="w-[675px] h-[400px]  border-2 rounded-[30px] shadow-[6px_4px_4px_0px_#00000040] Taskcardbg">
@@ -17,7 +21,8 @@ function TaskCard() {
             <p className='ml-[1rem] text-[18px] text-[#588117]  font-medium condesed w-[365px] '>Finish up your Todays task to gain experience</p>
           
             <div className="flex gap-[15rem]">
-            <div className="mt-[15rem] ml-5 text-white">Join live classes</div>  </div>  </div>
+            <button className='rounded-[30px] bg-black text-white w-[240px] h-[2rem] mt-[230px] ml-[2rem]'
+            onClick={tosettask}>Set Task</button> </div>  </div>
 
 
            <div className="rightTask rounded-[30px] ">

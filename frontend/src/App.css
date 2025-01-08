@@ -39,3 +39,12 @@
 
 }
 
+.avatar{
+    width: 36px;
+height: 32px;
+gap: 0px;
+opacity: 0px;
+border-radius: 50%;
+
+}
+
