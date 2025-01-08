@@ -65,7 +65,7 @@ const TaskPage = () => {
                 onClick={() => handleDayClick(day)}
                 className={`px-6 py-3 border rounded-lg shadow-md transition duration-300 ${
                   selectedDay === day
-                    ? "bg-blue-300 text-white border-blue-500"
+                    ? "bg-[rgb(127,127,250)] text-white border-[rgb(120,120,244)]"
                     : "bg-white text-black border-gray-300 hover:bg-blue-100 hover:shadow-lg"
                 }`}
               >
@@ -79,7 +79,7 @@ const TaskPage = () => {
                 <h2 className="text-xl font-semibold mb-4">Tasks for {selectedDay}:</h2>
                 <ul className="space-y-4">
                   {schedule[selectedDay].map((taskData, index) => (
-                    <li key={index} className="bg-gradient-to-l from-cyan-500 via-cyan-400 to-cyan-300 p-4 rounded-lg shadow-2xl hover:shadow-3xl transition duration-300">
+                    <li key={index} className="bg-gradient-to-l from-[rgb(170,170,247)] via-[rgb(190,190,254)] to-[rgb(194,194,250)] p-4 rounded-lg shadow-2xl hover:shadow-3xl transition duration-300">
                       <div className="font-semibold">{taskData.task}</div>
                       <div className="text-sm text-gray-600">{taskData.from} - {taskData.to}</div>
                     </li>
