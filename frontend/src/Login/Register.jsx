@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import axios from "axios";
-
+import { useNavigate } from "react-router-dom";
 const Register = () => {
+
+  const navigate= useNavigate();
   const [formData, setFormData] = useState({
     email: "",
     firstName: "",
@@ -9,7 +11,7 @@ const Register = () => {
     password: "",
   });
   const [errors, setErrors] = useState({});
-  const [successMessage, setSuccessMessage] = useState("");
+  
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -45,11 +47,13 @@ const Register = () => {
     try {
       const response = await axios.post("http://localhost:4000/users/register", {
         email: formData.email,
-        fullName: { firstName: formData.firstName, lastName:formData.lastName },
+        fullName: { firstName: formData.firstName, lastName: formData.lastName },
         password: formData.password,
       });
-      setSuccessMessage("Registration successful! Please login.");
-      setFormData({ email: "", firstName: "",lastName:"", password: "" });
+      alert("Registration successful!");
+      navigate("/login");
+
+      setFormData({ email: "", firstName: "", lastName: "", password: "" });
       setErrors({});
     } catch (error) {
       if (error.response) {
@@ -61,55 +65,100 @@ const Register = () => {
   };
 
   return (
-    <div className="bg-[#EAF6FA] w-[100vw] h-[100vh]">
-      <h2>Register</h2>
-      <p className="w-[auto] bg-green-600 text-white px-5 flex justify-center">{successMessage && <p>{successMessage}</p>}</p>
-      <form onSubmit={handleSubmit}>
-        <div>
-        <div className="flex flex-col justify-center items-center">
-        
-          <label>First Name</label>
-          <input
-            type="text"
-            name="firstName"
-            value={formData.firstName}
-            onChange={handleInputChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-          />
-         <p className="w-[auto] bg-red-400 text-white px-5"> {errors.firstName && <p>{errors.firstName}</p>}</p>
-        <br/>
-        
-        <label>Last Name</label>
-          <input
-            type="text"
-            name="lastName"
-            value={formData.lastName}
-            onChange={handleInputChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-          />
-        <br/>
-        <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleInputChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-          />
-          <p className="w-[auto] bg-red-400 text-white px-5">{errors.email && <p>{errors.email}</p>}</p>
-         <br/>
-        
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleInputChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-          />
-          <p className="w-[auto] bg-red-400 text-white px-5">{errors.password && <p>{errors.password}</p>}</p>
-        <br/>
-        <p className="w-[auto] bg-red-400 text-white px-5">{errors.general && <p>{errors.general}</p>}</p>
-        <button type="submit" className='bg-teal-200 w-[80px] '>Register</button>
-        </div>
-        </div>
-      </form>
+    <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-200 via-blue-100 to-blue-50">
+      <div className="bg-white shadow-lg rounded-lg p-8 w-[90%] max-w-md">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-6">Register</h2>
+      
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="firstName"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              First Name
+            </label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border rounded-lg shadow-sm bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            {errors.firstName && (
+              <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="lastName"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Last Name
+            </label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value={formData.lastName}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border rounded-lg shadow-sm bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Email
+            </label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              value={formData.email}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border rounded-lg shadow-sm bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
+
+          <div>
+            <label
+              htmlFor="password"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Password
+            </label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              value={formData.password}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border rounded-lg shadow-sm bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
+          </div>
+
+          {errors.general && (
+            <p className="text-red-500 text-center text-sm mt-4">{errors.general}</p>
+          )}
+
+          <button
+            type="submit"
+            className="w-full py-2 bg-blue-500 text-white rounded-lg shadow-md hover:bg-blue-600 transition duration-300"
+          >
+            Register
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
