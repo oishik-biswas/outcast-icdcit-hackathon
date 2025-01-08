@@ -4,7 +4,7 @@
 
 }
 .rightTask{
-    background-image: url('./assets/61ad43b29966ecde672a66702909263e.png');
+    background-image: url('assets/61ad43b29966ecde672a66702909263e.png');
     background-repeat: no-repeat;
     background-size: cover;      /* Ensures the image covers the whole container */
     background-position: center; 
@@ -14,7 +14,7 @@
 
 .Communitybg {
     position: relative; 
-    background-image: url('./assets/commbg.png');
+    background-image: url('assets/commbg.png');
     background-size: cover;
     background-position: center;
 }

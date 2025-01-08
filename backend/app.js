@@ -2,9 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import connectToMongo from "./db/db.js";
 import userRoute from "./routers/user.route.js";
+import {app} from 'lib/socket.js';
 
 connectToMongo();
-const app = express();
 
 app.use(cors());
 app.use(express.json());

@@ -1,13 +1,13 @@
 import React from 'react';
-import SideBar from './SideBar';
-import Navbar from './Navbar';
+import SideBar from './SideBar.jsx';
+import Navbar from './Navbar.jsx';
 import './Home.css';
-import Search from './Search';
-import TaskCard from './TaskCard';
-import CommunityCard from './CommunityCard';
-import ChatCard from './ChatCard';
-import ProgressCard from './ProgressCard';
-import CoursesCard from './CoursesCard';
+import Search from './Search.jsx';
+import TaskCard from './TaskCard.jsx';
+import CommunityCard from './CommunityCard.jsx';
+import ChatCard from './ChatCard.jsx';
+import ProgressCard from './ProgressCard.jsx';
+import CoursesCard from './CoursesCard.jsx';
 
 function Home() {
     const name="Andrew";

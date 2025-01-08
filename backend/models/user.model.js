@@ -26,7 +26,8 @@ const userSchema = new mongoose.Schema({
         select: false,
     },
     socketId: String,
-})
+
+}, { timestamps: true })
 
 userSchema.methods.generateToken = function () {
     return jwt.sign({_id: this._id}, process.env.SECRET);

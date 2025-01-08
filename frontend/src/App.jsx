@@ -1,15 +1,15 @@
 import React from 'react';
-import Home from './components/Home';
-import Login from './Login/Login';
+import Home from './components/Home.jsx';
+import Login from './Login/Login.jsx';
 import {BrowserRouter as Router,Routes,Route} from 'react-router-dom';
 import "./App.css"
-import Welcome from './components/Welcome';
-import Register from './Login/Register';
-import TaskPage from './innerComponents/TaskPage';
-import CommunityPage from './innerComponents/CommunityPage';
-import ChatPage from './innerComponents/ChatPage';
-import CoursesPage from './innerComponents/CoursesPage';
-import ProgressPage from './innerComponents/ProgressPage';
+import Welcome from './components/Welcome.jsx';
+import Register from './Login/Register.jsx';
+import TaskPage from './innerComponents/TaskPage.jsx';
+import CommunityPage from './innerComponents/CommunityPage.jsx';
+import ChatPage from './innerComponents/ChatPage.jsx';
+import CoursesPage from './innerComponents/CoursesPage.jsx';
+import ProgressPage from './innerComponents/ProgressPage.jsx';
 
 export default function App() {
   return (
