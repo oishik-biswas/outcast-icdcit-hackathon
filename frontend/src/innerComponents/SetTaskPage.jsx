@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import SideBar from '../components/SideBar';
+import TaskPage from './TaskPage';
 
 function SetTaskPage() {
+   
   const [tasks, setTasks] = useState([{ taskName: '', requiredHours: '' }]);
 
   const handleTaskChange = (index, event) => {
@@ -18,6 +20,7 @@ function SetTaskPage() {
     e.preventDefault();
     // Handle form submission logic, for example, sending tasks to the backend
     console.log(tasks);
+    
   };
 
   return (

@@ -12,7 +12,7 @@ function ChatCard() {
  };
   return (
     
-      <div className="w-[26vw] h-[25rem]  border-2 rounded-lg bg-white ml-[2rem] mt-[1rem]">
+      <div className="w-[40vw] h-[25rem]  border-2 rounded-lg bg-white ml-[3rem] mt-[1rem]">
         
             <div className="topline text-md h-[60%] ml-[1rem]">
               <div className='mt-[2rem] flex relative'><img src={Avatar1} className='avatar ' alt="" />

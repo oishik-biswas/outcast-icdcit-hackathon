@@ -42,13 +42,13 @@ function CoursesPage() {
   }
 
   return (
-    <div className='flex bg-[#d4f3fd] h-auto'>
+    <div className='flex bg-[#d4f3fd] h-auto overflow-hidden'>
       <div className='hidden md:block fixed'>
         <SideBar />
       </div>
       <div className=" w-auto h-auto">
         <div className="text-[50px] py-[20px] ml-[8rem] font-semibold flex gap-[400px]">Courses Page
-          <div className='text-[20px] flex gap-[30px] mt-[1rem]'><button className='bg-[rgb(173,189,226)] border-[rgb(156,176,222)] h-[40px] w-auto px-[2rem] py-[1rem] rounded-[30px] flex items-center hover:text-white hover:bg-[rgb(135,163,229)]'
+          <div className='text-[20px] flex gap-[30px] mt-[1rem]'><button className='bg-[rgb(173,189,226)] border-[rgb(156,176,222)] h-[40px] w-auto px-[2rem] py-[1rem] rounded-[30px] flex items-center overflow-hidden hover:text-white hover:bg-[rgb(135,163,229)]'
           onClick={tominimize}>
             Minimize any pdf</button> 
           <button className='bg-[rgb(173,189,226)] border-[rgb(156,176,222)] h-[40px] w-auto px-[2rem] py-[1rem] rounded-[30px] flex items-center hover:text-white hover:bg-[rgb(135,163,229)]'

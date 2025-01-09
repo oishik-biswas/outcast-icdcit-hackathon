@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import SideBar from '../components/SideBar';
 
 const TaskPage = () => {
-  const [selectedDay, setSelectedDay] = useState("");
-
   const schedule = {
     Monday: [
       { task: "Meeting with team", from: "10:00 AM", to: "11:00 AM" },
@@ -34,6 +32,9 @@ const TaskPage = () => {
       { task: "Plan for the week ahead", from: "4:00 PM", to: "5:00 PM" }
     ],
   };
+  const [selectedDay, setSelectedDay] = useState("");
+
+  
 
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 

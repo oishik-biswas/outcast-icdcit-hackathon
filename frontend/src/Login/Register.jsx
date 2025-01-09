@@ -50,8 +50,10 @@ const Register = () => {
         fullName: formData.firstName + " " + formData.lastName,
         password: formData.password,
       });
+
+     // console.log(response.data.fullName.firstName);
       alert("Registration successful!");
-      navigate("/login");
+      navigate("/home");
 
       setFormData({ email: "", firstName: "", lastName: "", password: "" });
       setErrors({});
