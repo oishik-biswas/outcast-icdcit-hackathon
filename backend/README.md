@@ -48,20 +48,210 @@ CLIENT_URL=http://localhost:5173
 
 ## Dev Dependencies
 - `nodemon`: ^3.1.7
+# API Endpoints Documentation
 
-## Endpoints
+## Auth Routes
 
-### Auth Routes
-- `POST /users/register`: Register a new user.
-- `POST /users/login`: Login a user.
-- `POST /users/logout`: Logout a user.
-- `PUT /users/update-profile`: Update user profile (protected route).
-- `GET /users/check`: Check user authentication status (protected route).
+### **POST /users/register:** Register a new user.
+#### Request Body:
+```json
+{
+  "email": "user@example.com",
+  "fullName": "John Doe",
+  "password": "password123"
+}
+```
+#### Response:
+```json
+{
+  "_id": "60d0fe4f5311236168a109ca",
+  "email": "user@example.com",
+  "fullName": "John Doe",
+  "profilePic": "",
+  "createdAt": "2023-10-01T12:34:56.789Z",
+  "updatedAt": "2023-10-01T12:34:56.789Z"
+}
+```
 
-### Message Routes
-- `GET /messages/users`: Get users for sidebar (protected route).
-- `GET /messages/:id`: Get messages for a specific user (protected route).
-- `POST /messages/send/:id`: Send a message to a specific user (protected route).
+### **POST /users/login:** Login a user.
+#### Request Body:
+```json
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+#### Response:
+```json
+{
+  "token": "jwt-token",
+  "user": {
+    "_id": "60d0fe4f5311236168a109ca",
+    "email": "user@example.com",
+    "fullName": "John Doe",
+    "profilePic": ""
+  }
+}
+```
+
+### **POST /users/logout:** Logout a user.
+#### Response:
+```json
+{
+  "message": "User logged out successfully"
+}
+```
+
+### **PUT /users/update-profile:** Update user profile (protected route).
+#### Request Body:
+```json
+{
+  "fullName": "John Doe Updated",
+  "profilePic": "new-profile-pic-url"
+}
+```
+#### Response:
+```json
+{
+  "_id": "60d0fe4f5311236168a109ca",
+  "email": "user@example.com",
+  "fullName": "John Doe Updated",
+  "profilePic": "new-profile-pic-url",
+  "createdAt": "2023-10-01T12:34:56.789Z",
+  "updatedAt": "2023-10-01T12:45:56.789Z"
+}
+```
+
+### **GET /users/check:** Check user authentication status (protected route).
+#### Response:
+```json
+{
+  "authenticated": true,
+  "user": {
+    "_id": "60d0fe4f5311236168a109ca",
+    "email": "user@example.com",
+    "fullName": "John Doe",
+    "profilePic": ""
+  }
+}
+```
+
+---
+
+## Message Routes
+
+### **GET /messages/users:** Get users for sidebar (protected route).
+#### Response:
+```json
+[
+  {
+    "_id": "60d0fe4f5311236168a109ca",
+    "email": "user@example.com",
+    "fullName": "John Doe",
+    "profilePic": ""
+  },
+  {
+    "_id": "60d0fe4f5311236168a109cb",
+    "email": "user2@example.com",
+    "fullName": "Jane Doe",
+    "profilePic": ""
+  }
+]
+```
+
+### **GET /messages/:id:** Get messages for a specific user (protected route).
+#### Response:
+```json
+[
+  {
+    "_id": "60d0fe4f5311236168a109cc",
+    "senderId": "60d0fe4f5311236168a109ca",
+    "receiverId": "60d0fe4f5311236168a109cb",
+    "text": "Hello!",
+    "image": "",
+    "createdAt": "2023-10-01T12:34:56.789Z",
+    "updatedAt": "2023-10-01T12:34:56.789Z"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109cd",
+    "senderId": "60d0fe4f5311236168a109cb",
+    "receiverId": "60d0fe4f5311236168a109ca",
+    "text": "Hi there!",
+    "image": "",
+    "createdAt": "2023-10-01T12:35:56.789Z",
+    "updatedAt": "2023-10-01T12:35:56.789Z"
+  }
+]
+```
+
+### **POST /messages/send/:id:** Send a message to a specific user (protected route).
+#### Request Body:
+```json
+{
+  "text": "Hello!",
+  "image": ""
+}
+```
+#### Response:
+```json
+{
+  "_id": "60d0fe4f5311236168a109cc",
+  "senderId": "60d0fe4f5311236168a109ca",
+  "receiverId": "60d0fe4f5311236168a109cb",
+  "text": "Hello!",
+  "image": "",
+  "createdAt": "2023-10-01T12:34:56.789Z",
+  "updatedAt": "2023-10-01T12:34:56.789Z"
+}
+```
+
+---
+
+## Task Routes
+
+### **GET /tasks/:userId:** Get all tasks for a user (protected route).
+#### Response:
+```json
+[
+  {
+    "_id": "60d0fe4f5311236168a109ce",
+    "userId": "60d0fe4f5311236168a109ca",
+    "name": "Task 1",
+    "completed": false,
+    "createdAt": "2023-10-01T12:34:56.789Z",
+    "updatedAt": "2023-10-01T12:34:56.789Z"
+  },
+  {
+    "_id": "60d0fe4f5311236168a109cf",
+    "userId": "60d0fe4f5311236168a109ca",
+    "name": "Task 2",
+    "completed": true,
+    "createdAt": "2023-10-01T12:35:56.789Z",
+    "updatedAt": "2023-10-01T12:35:56.789Z"
+  }
+]
+```
+
+### **POST /tasks/:userId:** Add a new task (protected route).
+#### Request Body:
+```json
+{
+  "name": "New Task",
+  "completed": false
+}
+```
+#### Response:
+```json
+{
+  "_id": "60d0fe4f5311236168a109d0",
+  "userId": "60d0fe4f5311236168a109ca",
+  "name": "New Task",
+  "completed": false,
+  "createdAt": "2023-10-01T12:36:56.789Z",
+  "updatedAt": "2023-10-01T12:36:56.789Z"
+}
+```
+
 
 ## Running the Application
 1. Start the development server:
