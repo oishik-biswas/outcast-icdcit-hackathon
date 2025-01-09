@@ -4,42 +4,41 @@ import SideBar from "../components/SideBar";
 
 const TaskPage = () => {
   const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const currentDay = dayNames[new Date().getDay()]; // Get the current day name
+  const currentDay = dayNames[new Date().getDay()];
 
   const [tasks, setTasks] = useState({});
-  const [selectedDay, setSelectedDay] = useState(currentDay); // Set the default selected day
+  const [selectedDay, setSelectedDay] = useState(currentDay);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
     let userId = localStorage.getItem("userId")?.trim();
-    if (userId.startsWith('"') && userId.endsWith('"')) {
+
+    // Validate and clean userId
+    if (userId?.startsWith('"') && userId?.endsWith('"')) {
       userId = userId.slice(1, -1);
     }
 
     if (!userId) {
-      console.error("User ID not found");
+      console.error("User ID not found in localStorage.");
       setError("User ID not found. Please log in.");
       setLoading(false);
       return;
     }
 
-    // Check if userId is a valid ObjectId (24 characters long and hex)
     if (!/^[a-fA-F0-9]{24}$/.test(userId)) {
-      console.error("Invalid userId format");
+      console.error("Invalid userId format.");
       setError("Invalid User ID format. Please check your session.");
       setLoading(false);
       return;
     }
 
-    console.log("Retrieved userId:", userId); // Log userId
-    console.log("Type of userId:", typeof userId); // Log type of userId
-
-    // Fetch tasks from the backend using userId
+    // Fetch tasks from backend
     axios
-      .get(`http://localhost:4000/tasks/${userId}`)
+      .get(`http://localhost:4000/schedule/${userId}`)
       .then((response) => {
-        setTasks(response.data); // Assume response.data is the JSON with days as keys
+        console.log("Tasks fetched successfully:", response.data);
+        setTasks(response.data); // Assign the returned JSON to tasks
         setLoading(false);
       })
       .catch((error) => {

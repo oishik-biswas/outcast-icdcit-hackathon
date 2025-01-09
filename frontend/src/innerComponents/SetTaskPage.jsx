@@ -51,11 +51,13 @@ function SetTaskPage() {
                 const taskData = {
                     name: task.taskName.trim(), // Use 'name' instead of 'taskName'
                     completed: false,  // Default to false for 'completed'
+                    numberOfHours: task.requiredHours,  // Use 'numberOfHours' instead of 'requiredHours'
                 };
 
                 // Send each task data to the server
                 const response = await axios.post(endpoint, taskData);
                 console.log("Task submitted successfully", response.data);
+                
             })
         );
         alert("Submitted tasks successfully");
