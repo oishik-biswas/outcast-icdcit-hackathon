@@ -63,6 +63,10 @@ CLIENT_URL=http://localhost:5173
 - `GET /messages/:id`: Get messages for a specific user (protected route).
 - `POST /messages/send/:id`: Send a message to a specific user (protected route).
 
+### Task Routes
+- `GET /tasks`: Get all tasks.
+- `POST /tasks`: Add a new task.
+
 ## Running the Application
 1. Start the development server:
    ```sh

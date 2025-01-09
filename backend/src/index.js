@@ -10,6 +10,7 @@ import { connectDB } from "./lib/db.js";
 
 import authRoutes from "./routes/auth.route.js";
 import messageRoutes from "./routes/message.route.js";
+import taskRoute from "./routes/task.route.js";
 import { app, server } from "./lib/socket.js";
 
 dotenv.config();
@@ -30,6 +31,7 @@ app.use(
 
 app.use("/users", authRoutes);
 app.use("/messages", messageRoutes);
+app.use("/tasks", taskRoute);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
@@ -58,4 +60,4 @@ async function processPdf() {
     }
 }
 
-processPdf();
+// processPdf();
