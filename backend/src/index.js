@@ -55,7 +55,8 @@ app.post("/upload", upload.single("file"), (req, res) => {
         fs.mkdirSync(outputDir);
     }
 
-    const pythonProcess = spawn("python3", ["process_pdf.py", pdfPath, outputPath]);
+    // const scriptPath = path.join(__dirname, "../backend/scripts/process_pdf.py");
+    const pythonProcess = spawn("python3", ["./scripts/process_pdf.py", pdfPath, outputPath]);
 
     pythonProcess.stdout.on("data", (data) => {
         console.log(`Python stdout: ${data}`);
