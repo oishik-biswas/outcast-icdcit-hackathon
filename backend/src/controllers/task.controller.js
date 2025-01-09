@@ -13,13 +13,13 @@ export const getTasks = async (req, res) => {
 export const addTask = async (req, res) => {
     try {
         const { userId } = req.params;
-        const { name, completed } = req.body;
+        const { name, numberOfHours,completed } = req.body;
 
         if (!name) {
             return res.status(400).json({ message: "Task name is required" });
         }
 
-        const task = new Task({ userId, name, completed });
+        const task = new Task({ userId, name, numberOfHours, completed });
         await task.save();
 
         res.status(201).json(task);
