@@ -54,7 +54,7 @@ function MinimizedPDF() {
       </div>
       
       {/* Main Content */}
-      <div className="flex-1 ml-0 md:ml-64 p-6 flex flex-col items-center">
+      <div className="flex-1 ml-0 md:ml-[100px] p-6 flex flex-col items-center">
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4">Upload PDF</h2>
           <input

@@ -2,30 +2,28 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const SidebarChatPage = ({ onSelectUser }) => {
-  const [users, setUsers] = useState([]);  // Initialize as an empty array
-  const [loading, setLoading] = useState(true);  // Track loading state
-  const [error, setError] = useState(null);  // Track error state
+  const [users, setUsers] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        setLoading(true);  // Start loading
-        setError(null);     // Reset any previous error
+        setLoading(true);
+        setError(null);
 
-        // Make the API request to fetch users
         const response = await axios.get('http://localhost:4000/messages/users', {
-          withCredentials: true,  // Send cookies (if any)
+          withCredentials: true,
         });
 
-        console.log(response.data);  // Log to check API response
+        console.log(response.data);
 
         if (Array.isArray(response.data)) {
-          setUsers(response.data);  // Set the users if response is an array
+          setUsers(response.data);
         } else {
           setError("API response is not an array.");
         }
       } catch (error) {
-        // Handle different types of errors
         console.error("Error fetching users:", error.response ? error.response.data : error.message);
 
         if (error.response) {
@@ -40,35 +38,51 @@ const SidebarChatPage = ({ onSelectUser }) => {
           setError("Network error. Please check your connection.");
         }
       } finally {
-        setLoading(false);  // Stop loading after the request is done
+        setLoading(false);
       }
     };
 
     fetchUsers();
   }, []);
 
-  // If loading, show a loading indicator
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="text-center py-4">
+        <p className="text-gray-500">Loading...</p>
+      </div>
+    );
   }
 
-  // If there was an error, display it
   if (error) {
-    return <p>{error}</p>;
+    return (
+      <div className="text-center py-4">
+        <p className="text-red-500">{error}</p>
+      </div>
+    );
   }
 
-  // If users is empty, show a message
   if (users.length === 0) {
-    return <p>No users found</p>;
+    return (
+      <div className="text-center py-4">
+        <p className="text-gray-500">No users found</p>
+      </div>
+    );
   }
 
   return (
-    <div className="sidebar">
-      {users.map(user => (
-        <div key={user._id} onClick={() => onSelectUser(user)} className="sidebar-user">
-          <p>{user.username}</p>
-        </div>
-      ))}
+    <div className="sidebar p-4 bg-gray-50 w-80 h-full overflow-y-auto shadow-lg">
+      <h2 className="text-xl font-semibold mb-4 text-gray-700">Users</h2>
+      <div className="space-y-2">
+        {users.map(user => (
+          <div
+            key={user._id}
+            onClick={() => onSelectUser(user)}
+            className="sidebar-user p-3 rounded-lg cursor-pointer hover:bg-blue-100 transition-all ease-in-out"
+          >
+            <p className="text-gray-700">{user.username}</p>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

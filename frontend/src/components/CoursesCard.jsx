@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import Coursecardimg from '../assets/Coursecard.png';
 
 function CoursesCard() {
