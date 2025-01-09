@@ -22,16 +22,17 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const response = await axios.post('http://localhost:4000/users/login', formData);
-      console.log(response.data);
+      // Send login request to your backend
+      const response = await axios.post('http://localhost:4000/users/login', formData, { withCredentials: true });
+
+      // Store token and user data in localStorage as stringified objects
       localStorage.setItem('authToken', JSON.stringify(response.data.token));
-      localStorage.setItem('userId',JSON.stringify(response.data._id));
+      localStorage.setItem('userId', JSON.stringify(response.data._id));
+
       setSuccessMessage('Login successful!');
-      
       setErrors({});
-      navigate('/home');
+      navigate('/home'); // Navigate to home page after login
     } catch (err) {
       if (err.response && err.response.data) {
         setErrors(err.response.data.errors || {});

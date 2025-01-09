@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import Cookies from 'js-cookie'; // Import js-cookie
 
 const SidebarChatPage = ({ onSelectUser }) => {
   const [users, setUsers] = useState([]);
@@ -12,8 +13,20 @@ const SidebarChatPage = ({ onSelectUser }) => {
         setLoading(true);
         setError(null);
 
+        // Get the authToken from cookies
+        const authToken = Cookies.get('authToken');
+        if (!authToken) {
+          setError("No authentication token found.");
+          return;
+        }
+
+        console.log('Auth Token:', authToken);  // Debug log for token
+
         const response = await axios.get('http://localhost:4000/messages/users', {
-          withCredentials: true,
+          headers: {
+            Authorization: `Bearer ${authToken}`, // Send the token in Authorization header
+          },
+          withCredentials: true, // Include credentials (cookies)
         });
 
         console.log(response.data);
