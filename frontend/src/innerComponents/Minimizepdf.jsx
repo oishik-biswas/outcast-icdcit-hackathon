@@ -5,6 +5,7 @@ function MinimizedPDF() {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [response, setResponse] = useState('');
+  const [summary, setSummary] = useState(''); // State for the summary
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -26,6 +27,7 @@ function MinimizedPDF() {
 
     setLoading(true);
     setResponse('');
+    setSummary(''); // Clear summary before upload
 
     try {
       const response = await fetch('http://localhost:4000/upload', {
@@ -34,13 +36,16 @@ function MinimizedPDF() {
       });
 
       const result = await response.json();
+
       if (response.ok) {
-        setResponse('File uploaded successfully!');
+        setResponse(`✅ Success: ${result.message || 'File uploaded successfully!'}`);
+        setSummary(result.summary || 'No summary provided.'); // Update summary
       } else {
-        setResponse('File upload failed. Please try again.');
+        setResponse(`❌ Error: ${result.error || 'Upload failed'}`);
       }
     } catch (error) {
-      setResponse('Error uploading file.');
+      console.error('Upload error:', error);
+      setResponse('❌ Error uploading file. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -48,12 +53,9 @@ function MinimizedPDF() {
 
   return (
     <div className="flex bg-[#d4f3fd] min-h-screen">
-      {/* Sidebar - Visible on medium screens and up */}
       <div className="hidden md:block fixed w-64">
         <SideBar />
       </div>
-      
-      {/* Main Content */}
       <div className="flex-1 ml-0 md:ml-[100px] p-6 flex flex-col items-center">
         <div className="w-full max-w-md bg-white rounded-lg shadow-md p-6">
           <h2 className="text-2xl font-semibold text-gray-700 mb-4">Upload PDF</h2>
@@ -70,7 +72,6 @@ function MinimizedPDF() {
               <p className="text-gray-600">File size: {file.size} bytes</p>
             </div>
           )}
-
           <button
             onClick={handleFileUpload}
             disabled={loading}
@@ -78,10 +79,19 @@ function MinimizedPDF() {
           >
             {loading ? 'Uploading...' : 'Upload PDF'}
           </button>
-
           {response && (
-            <div className="mt-4 text-center text-lg text-gray-800">
+            <div
+              className={`mt-4 text-center text-lg ${
+                response.startsWith('✅') ? 'text-green-600' : 'text-red-600'
+              }`}
+            >
               {response}
+            </div>
+          )}
+          {summary && (
+            <div className="mt-4 bg-gray-100 p-4 rounded-lg shadow-md w-full">
+              <h3 className="text-lg font-medium text-gray-800">Summary:</h3>
+              <p className="text-gray-600">{summary}</p>
             </div>
           )}
         </div>
