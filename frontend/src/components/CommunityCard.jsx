@@ -10,7 +10,7 @@ function CommunityCard() {
   };
   return (
     <div>
-    <div className="w-[450px] h-[400px]  border-2 rounded-lg mt-6 ml-[15px] z-0 Communitybg">
+    <div className="w-[450px] h-[400px]  border-2 rounded-[30px] mt-6 ml-[15px] z-0 Communitybg shadow-[6px_4px_4px_0px_#00000040]">
          <div className="grid h-[92%] z-10">
           <p className='text-4xl ml-5 text-white font-bold mt-6 '><p className='outlined-text'>Community</p>
           <p className='text-[20px] text-[#172681]  font-medium condesed'>Join the community and enhance your skills</p>

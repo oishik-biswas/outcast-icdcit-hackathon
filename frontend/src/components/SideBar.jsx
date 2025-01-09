@@ -17,16 +17,24 @@ function SideBar() {
   const tohome=(e)=>{
      e.preventDefault();
      navigate("/home");
-  }
+  };
+
+  const tochat=(e)=>{
+    navigate("/chatpage");
+  };
+
+  const totask=(e)=>{
+    navigate("/taskpage");
+  };
   return (
     <div className=' bg-white h-[100vh] w-[5rem] shadow-xl shadow-black'>
         <div className="flex flex-col items-center justify-center">
             <ul>
                 <li onClick={tohome} className='mt-[4rem] text-[1.5rem] text-gray-500 cursor-pointer icons '>
                     <GoHome/></li>
-                <li className='mt-3 text-[1.5rem] text-gray-500 cursor-pointer icons'>
+                <li onClick={tochat} className='mt-3 text-[1.5rem] text-gray-500 cursor-pointer icons'>
                     <BiMessageMinus/></li>
-                    <li className='mt-3 text-[1.5rem] text-gray-500 cursor-pointer icons'>
+                    <li onClick={totask} className='mt-3 text-[1.5rem] text-gray-500 cursor-pointer icons'>
                     <LuCalendarDays/></li>
                     <li className='mt-[4rem] text-[1.5rem] text-gray-500 cursor-pointer icons'>
                     <GoBell/></li>

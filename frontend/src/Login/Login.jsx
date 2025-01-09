@@ -4,8 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [formData, setFormData] = useState({
-    firstname:'',
-    lastname:'',
     email: '',
     password: '',
   });
@@ -27,63 +25,71 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:4000/users/login', formData);
-      // Assuming the backend returns a JWT token after login
       localStorage.setItem('authToken', response.data.token);
       setSuccessMessage('Login successful!');
-      setErrors({});  
-      navigate('/home'); 
+      setErrors({});
+      navigate('/home');
     } catch (err) {
       if (err.response && err.response.data) {
         setErrors(err.response.data.errors || {});
-        console.log(err.msg);
+        console.log(err.response.data.message);
       }
     }
   };
 
   return (
-    <div className='bg-[#EAF6FA] w-[100vw] h-[100vh]'>
-      <h2>Login Form</h2>
-      {successMessage && <p>{successMessage}</p>}
-      <form onSubmit={handleSubmit}>
-        <div className='flex justify-center items-center flex-col'>
-        
-          <label>First name</label>
-          <input type='text' name='firstname' value={formData.firstname}
-             onChange={handleChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-            /><br/>
-            <label>Last name</label>
-          <input type='text' name='lastname' value={formData.lastname}
-             onChange={handleChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-            /><br/>
-          <label>Email</label>
-          <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-            required
-          />
-          {errors.email && <p>{errors.email}</p>}
-        <br/>
+    <div className="bg-gradient-to-b from-cyan-200 to-cyan-100 min-h-screen flex justify-center items-center">
+      <div className="bg-white p-8 rounded-lg shadow-lg w-96">
+        <h2 className="text-2xl font-bold text-gray-800 text-center mb-6">
+          Login to <span className="text-teal-500">HealthEase</span>
+        </h2>
+        {successMessage && (
+          <p className="text-green-500 text-center mb-4">{successMessage}</p>
+        )}
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <div className="flex flex-col">
+            <label htmlFor="email" className="text-gray-700 font-medium mb-1">
+              Email
+            </label>
+            <input
+              type="email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+              required
+            />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+            )}
+          </div>
 
-    
-          <label>Password</label>
-          <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange} className='ml-3 mb-5 px-3 bg-gray-200 rounded-[30px] shadow-[4px_4px_4px_4px_#add8e6]'
-            required
-          />
-          {errors.password && <p>{errors.password}</p>}
-        <br/>
+          <div className="flex flex-col">
+            <label htmlFor="password" className="text-gray-700 font-medium mb-1">
+              Password
+            </label>
+            <input
+              type="password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              className="bg-gray-100 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-teal-400"
+              required
+            />
+            {errors.password && (
+              <p className="text-red-500 text-sm mt-1">{errors.password}</p>
+            )}
+          </div>
 
-        <button type="submit" className='bg-teal-200 w-[80px] '>Login</button>
-        </div>
-      </form>
-      
+          <button
+            type="submit"
+            className="bg-teal-500 text-white py-2 rounded-lg shadow-lg hover:bg-teal-600 transition-all duration-300"
+          >
+            Login
+          </button>
+        </form>
+      </div>
     </div>
-    
   );
 };
 

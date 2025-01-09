@@ -26,7 +26,8 @@
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(217, 217, 217, 0.52); 
+    background: rgba(217, 217, 217, 0.52);
+    border-radius: 30px; 
     z-index: -1; 
 }
 .condesed{
@@ -35,6 +36,15 @@
 }
 .Taskcardbg{
     background: linear-gradient(250.31deg, #CDF0EF 1.85%, #768A8A 186.76%);
+
+}
+
+.avatar{
+    width: 36px;
+height: 32px;
+gap: 0px;
+opacity: 0px;
+border-radius: 50%;
 
 }
 

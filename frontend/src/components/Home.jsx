@@ -20,7 +20,7 @@ function Home() {
        <div className="md:hidden">
          <Navbar/>
          </div>
-         <div className="main bg-[#EAF6FA] w-auto h-auto ml-[5rem] ">
+         <div className="main bg-[#d4f3fd] w-auto h-auto ml-[5rem] ">
           <div className="flex ">
          <div className="ml-7 lefthand">
            
