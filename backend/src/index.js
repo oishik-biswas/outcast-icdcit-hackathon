@@ -36,13 +36,13 @@ app.use("/users", authRoutes);
 app.use("/messages", messageRoutes);
 app.use("/tasks", taskRoute);
 
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-    app.get("*", (req, res) => {
-        res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-    });
-}
+// if (process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join(__dirname, "../frontend/dist")));
+//
+//     app.get("*", (req, res) => {
+//         res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+//     });
+// }
 const storage = multer.diskStorage({
     destination: 'uploads/',
     filename: (req, file, cb) => {
@@ -170,6 +170,43 @@ app.get("/schedule/:userId", (req, res) => {
     });
 });
 
+app.get("/:skills/courses", (req, res) => {
+    const skills = req.params.skills;
+
+    // Spawn the Python script with the skills argument
+    const pythonProcess = spawn("python", [
+        path.resolve("./scripts/course_scraper.py"),
+        skills,
+    ]);
+
+    let pythonOutput = "";
+
+    // Capture the Python script's stdout
+    pythonProcess.stdout.on("data", (data) => {
+        pythonOutput += data.toString();
+    });
+
+    // Handle Python script errors
+    pythonProcess.stderr.on("data", (data) => {
+        console.error(`Python Error: ${data}`);
+    });
+
+    // Send the response when the Python script finishes
+    pythonProcess.on("close", (code) => {
+        if (code === 0) {
+            try {
+                const courses = JSON.parse(pythonOutput); // Parse the JSON output
+                res.status(200).json(courses); // Send the courses as the response
+            } catch (err) {
+                console.error(`Error parsing Python output: ${err}`);
+                res.status(500).send("Error parsing Python output.");
+            }
+        } else {
+            res.status(500).send("Failed to fetch courses.");
+        }
+    });
+});
+
 
 // const upload = multer({dest: "uploads/"});
 
@@ -210,19 +247,3 @@ server.listen(PORT, () => {
     console.log("server is running on PORT:" + PORT);
     connectDB();
 });
-
-async function processPdf() {
-    const pdfPath = "C:/Users/KIIT0001/Desktop/Semester 1/Physics/Diffraction.pdf";
-    const outputPath = "C:/Users/KIIT0001/Documents/GitHub/outcast-icdcit-hackathon/backend/src/output.txt";
-
-    try {
-        console.log("Starting Python script...");
-        const result = await runPythonScript(pdfPath, outputPath);
-        console.log("Python script output:");
-        console.log(result);
-    } catch (error) {
-        console.error("Error running Python script:", error);
-    }
-}
-
-// processPdf();
