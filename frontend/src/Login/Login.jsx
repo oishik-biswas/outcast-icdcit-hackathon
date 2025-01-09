@@ -25,8 +25,11 @@ const Login = () => {
 
     try {
       const response = await axios.post('http://localhost:4000/users/login', formData);
-      localStorage.setItem('authToken', response.data.token);
+      console.log(response.data);
+      localStorage.setItem('authToken', JSON.stringify(response.data.token));
+      localStorage.setItem('userId',JSON.stringify(response.data._id));
       setSuccessMessage('Login successful!');
+      
       setErrors({});
       navigate('/home');
     } catch (err) {
