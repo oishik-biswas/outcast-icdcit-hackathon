@@ -1,117 +1,83 @@
-# Backend API Documentation
+# Backend
 
-This is the backend for the Outcast ICDCiT Hackathon project. It is built using Node.js, Express, and MongoDB.
-
-## Prerequisites
-
-- Node.js
-- npm
-- MongoDB
+## Description
+This is the backend for a chat application. It is built using Node.js, Express, and MongoDB.
 
 ## Installation
-
 1. Clone the repository:
-    ```sh
-    git clone https://github.com/your-username/outcast-icdcit-hackathon.git
-    cd outcast-icdcit-hackathon/backend
-    ```
+   ```sh
+   git clone <repository-url>
+   ```
+2. Navigate to the backend directory:
+   ```sh
+   cd backend
+   ```
+3. Install the dependencies:
+   ```sh
+   npm install
+   ```
 
-2. Install dependencies:
-    ```sh
-    npm install
-    ```
+## Environment Variables
+Create a `.env` file in the `backend` directory and add the following environment variables:
+```
+PORT=4000
+MONGODB_URI=<your-mongodb-uri>
+JWT_SECRET=<your-jwt-secret>
+NODE_ENV=production
+CLOUDINARY_CLOUD_NAME=<your-cloudinary-cloud-name>
+CLOUDINARY_API_KEY=<your-cloudinary-api-key>
+CLOUDINARY_API_SECRET=<your-cloudinary-api-secret>
+CLIENT_URL=http://localhost:5173
+```
 
-3. Create a `.env` file in the `backend` directory and add the following environment variables:
-    ```dotenv
-    PORT=4000
-    MONGODB_URI=mongodb://localhost:27017/outcast
-    SECRET=uber-clone-secret
-    ```
+## Scripts
+- `dev`: Starts the development server using `nodemon`.
+- `start`: Starts the production server.
 
-## Running the Server
+## Dependencies
+- `bcryptjs`: ^2.4.3
+- `cloudinary`: ^2.5.1
+- `cookie-parser`: ^1.4.7
+- `cors`: ^2.8.5
+- `dotenv`: ^16.4.5
+- `express`: ^4.21.1
+- `jsonwebtoken`: ^9.0.2
+- `mongodb`: ^6.12.0
+- `mongoose`: ^8.8.1
+- `socket.io`: ^4.8.1
 
-1. Start the MongoDB server:
-    ```sh
-    mongod
-    ```
+## Dev Dependencies
+- `nodemon`: ^3.1.7
 
-2. Start the backend server:
-    ```sh
-    npm start
-    ```
+## Endpoints
 
-The server will start on the port specified in the `.env` file (default is 4000).
+### Auth Routes
+- `POST /users/register`: Register a new user.
+- `POST /users/login`: Login a user.
+- `POST /users/logout`: Logout a user.
+- `PUT /users/update-profile`: Update user profile (protected route).
+- `GET /users/check`: Check user authentication status (protected route).
 
-## API Endpoints
+### Message Routes
+- `GET /messages/users`: Get users for sidebar (protected route).
+- `GET /messages/:id`: Get messages for a specific user (protected route).
+- `POST /messages/send/:id`: Send a message to a specific user (protected route).
 
-### User Routes
+## Running the Application
+1. Start the development server:
+   ```sh
+   npm run dev
+   ```
+2. Start the production server:
+   ```sh
+   npm start
+   ```
 
-#### Register a new user
-
-- **URL:** `/users/register`
-- **Method:** `POST`
-- **Body:**
-    ```json
-    {
-        "fullName": {
-            "firstName": "John",
-            "lastName": "Doe"
-        },
-        "email": "john.doe@example.com",
-        "password": "password123"
-    }
-    ```
-- **Response:**
-    ```json
-    {
-        "user": {
-            "_id": "60d0fe4f5311236168a109ca",
-            "fullName": {
-                "firstName": "John",
-                "lastName": "Doe"
-            },
-            "email": "john.doe@example.com"
-        },
-        "token": "your-jwt-token"
-    }
-    ```
-
-#### Login a user
-
-- **URL:** `/users/login`
-- **Method:** `POST`
-- **Body:**
-    ```json
-    {
-        "email": "john.doe@example.com",
-        "password": "password123"
-    }
-    ```
-- **Response:**
-    ```json
-    {
-        "user": {
-            "_id": "60d0fe4f5311236168a109ca",
-            "fullName": {
-                "firstName": "John",
-                "lastName": "Doe"
-            },
-            "email": "john.doe@example.com"
-        },
-        "token": "your-jwt-token"
-    }
-    ```
-
-## Project Structure
-
-- `server.js` - Entry point of the application
-- `app.js` - Express application setup
-- `db/db.js` - MongoDB connection setup
-- `models/user.model.js` - User model definition
-- `services/user.service.js` - User service for business logic
-- `controllers/user.controller.js` - User controller for handling requests
-- `routers/user.route.js` - User routes
+## Seeding the Database
+To seed the database with initial data, run the following command:
+```sh
+node src/seeds/user.seed.js
+```
 
 ## License
-
-This project is licensed under the MIT License.
+This project is licensed under the ISC License.
