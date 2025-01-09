@@ -4,9 +4,9 @@ import Navbar from './Navbar.jsx';
 import './Home.css';
 import Search from './Search.jsx';
 import TaskCard from './TaskCard.jsx';
-import CommunityCard from './CommunityCard.jsx';
+
 import ChatCard from './ChatCard.jsx';
-import ProgressCard from './ProgressCard.jsx';
+
 import CoursesCard from './CoursesCard.jsx';
 
 function Home() {
@@ -39,12 +39,12 @@ function Home() {
           <div className="flex ">
          
          </div>
-      {/*} <CommunityCard/>*/}
+      
          </div>
          </div>
          <div className="cards flex">
           <ChatCard/>
-          {/*<ProgressCard/>*/}
+        
           <CoursesCard/>
           </div>
          </div>
