@@ -1,0 +1,36 @@
+{
+"tasks": [
+    "Patient Consultations",
+    "Medical Examinations",
+    "Surgeries",
+    "Follow-up Calls",
+    "Prescription Reviews",
+    "Health Screenings",
+    "Emergency Care",
+    "Patient Admissions",
+    "Discharge Planning",
+    "Medical Research",
+    "Staff Meetings",
+    "Training Sessions",
+    "Administrative Duties",
+    "Telemedicine Appointments",
+    "Patient Education"
+],
+"hours": {
+    "Patient Consultations": 5,
+    "Medical Examinations": 3,
+    "Surgeries": 8,
+    "Follow-up Calls": 2,
+    "Prescription Reviews": 1,
+    "Health Screenings": 4,
+    "Emergency Care": 6,
+    "Patient Admissions": 2,
+    "Discharge Planning": 3,
+    "Medical Research": 4,
+    "Staff Meetings": 2,
+    "Training Sessions": 3,
+    "Administrative Duties": 2,
+    "Telemedicine Appointments": 3,
+    "Patient Education": 2
+}
+}

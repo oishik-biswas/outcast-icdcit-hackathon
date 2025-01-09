@@ -3,6 +3,8 @@ import SideBar from '../components/SideBar';
 
 function MinimizedPDF() {
   const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [response, setResponse] = useState('');
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
@@ -10,6 +12,37 @@ function MinimizedPDF() {
       setFile(selectedFile);
     } else {
       alert('Please upload a valid PDF file.');
+    }
+  };
+
+  const handleFileUpload = async () => {
+    if (!file) {
+      alert('Please select a file first.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    setLoading(true);
+    setResponse('');
+
+    try {
+      const response = await fetch('http://localhost:4000/upload', {
+        method: 'POST',
+        body: formData,
+      });
+
+      const result = await response.json();
+      if (response.ok) {
+        setResponse('File uploaded successfully!');
+      } else {
+        setResponse('File upload failed. Please try again.');
+      }
+    } catch (error) {
+      setResponse('Error uploading file.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -35,6 +68,20 @@ function MinimizedPDF() {
               <h3 className="text-lg font-medium text-gray-800">Uploaded PDF:</h3>
               <p className="text-gray-600 truncate">{file.name}</p>
               <p className="text-gray-600">File size: {file.size} bytes</p>
+            </div>
+          )}
+
+          <button
+            onClick={handleFileUpload}
+            disabled={loading}
+            className="mt-4 bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 disabled:bg-gray-300"
+          >
+            {loading ? 'Uploading...' : 'Upload PDF'}
+          </button>
+
+          {response && (
+            <div className="mt-4 text-center text-lg text-gray-800">
+              {response}
             </div>
           )}
         </div>

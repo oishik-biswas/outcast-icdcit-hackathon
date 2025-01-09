@@ -50,7 +50,7 @@ const Register = () => {
         fullName: formData.firstName + " " + formData.lastName,
         password: formData.password,
       });
-
+        console.log(response.data);
      // console.log(response.data.fullName.firstName);
       alert("Registration successful!");
       navigate("/home");
