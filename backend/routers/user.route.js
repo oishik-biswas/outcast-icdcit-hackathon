@@ -1,6 +1,7 @@
 import express from 'express';
 import {body} from 'express-validator';
 import userController from '../controllers/user.controller.js';
+import {protectRoute} from "../middleware/user.middleware.js";
 
 const router = express.Router();
 
@@ -20,6 +21,10 @@ router.post("/login", [
         max: 11
     }).withMessage("Passwords must be at least 6 characters adn at most 11 characters long"),
 ], userController.login);
+
+router.post("/logout", userController.logout);
+router.put("/update-profile", protectRoute, userController.updateProfile);
+router.get("/check", protectRoute, userController.checkAuth);
 
 export default router;
 
