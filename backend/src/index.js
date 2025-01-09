@@ -45,8 +45,8 @@ server.listen(PORT, () => {
 });
 
 async function processPdf() {
-    const pdfPath = "C:/Users/KIIT0001/Documents/23051357_BEtc.pdf";
-    const outputPath = "C:/Users/KIIT0001/WebstormProjects/outcast-icdcit-hackathon/backend/scripts";
+    const pdfPath = "C:/Users/KIIT0001/Desktop/Semester 1/Physics/Diffraction.pdf";
+    const outputPath = "C:/Users/KIIT0001/Documents/GitHub/outcast-icdcit-hackathon/backend/src/output.txt";
 
     try {
         console.log("Starting Python script...");
