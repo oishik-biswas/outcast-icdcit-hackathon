@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import multer from "multer";
+import fs from "fs";
 import {runPythonScript} from "./pythonExecutor.js";
 
 import path from "path";
@@ -40,6 +42,45 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
+
+const upload = multer({ dest: "uploads/" }); // Temp directory to store uploaded PDFs
+
+// Endpoint to handle PDF upload
+app.post("/upload-pdf", upload.single("file"), (req, res) => {
+    const pdfPath = req.file.path; // Path of the uploaded PDF
+    const outputDir = path.join(__dirname, "outputs");
+    const outputPath = path.join(outputDir, `${req.file.filename}_summary.txt`);
+
+    // Ensure output directory exists
+    if (!fs.existsSync(outputDir)) {
+        fs.mkdirSync(outputDir);
+    }
+
+    // Invoke the Python script
+    const pythonProcess = spawn("python3", ["process_pdf.py", pdfPath, outputPath]);
+
+    pythonProcess.stdout.on("data", (data) => {
+        console.log(`Python stdout: ${data}`);
+    });
+
+    pythonProcess.stderr.on("data", (data) => {
+        console.error(`Python stderr: ${data}`);
+    });
+
+    pythonProcess.on("close", (code) => {
+        console.log(`Python process exited with code ${code}`);
+
+        // Respond to client
+        if (code === 0) {
+            res.json({ message: "PDF processed successfully", outputPath });
+        } else {
+            res.status(500).json({ message: "Failed to process PDF" });
+        }
+
+        // Cleanup: Delete the uploaded PDF
+        fs.unlinkSync(pdfPath);
+    });
+});
 
 server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
