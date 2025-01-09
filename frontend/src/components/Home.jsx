@@ -26,10 +26,10 @@ function Home() {
         {/*} <div className="ml-7 lefthand">*/}
           <div className='flex flex-col ml-[2rem]'>
             <div className='flex '>
-         <div> <h1 className='text-[40px]  font-bold'>Hello!</h1>
+         <div> <h1 className='text-[40px]  font-bold mt-[2rem]'>Hello!</h1>
           <h3 className='font-semibold text-gray-600 text-[15px]'>Let's look at today's activity overview</h3></div>
           <Search/>
-          <button type="button" className='bg-black text-lime-300 h-[43px] w-[138px] ml-3 px-10  rounded-[30px] flex items-center mt-[1rem]'>Upgrade</button>
+          <button type="button" className='bg-black text-lime-300 h-[43px] w-[138px] ml-3 px-10  rounded-[30px] flex items-center mt-[2rem]'>Upgrade</button>
           </div>
           <TaskCard/>
          
