@@ -137,6 +137,40 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     }
 });
 
+app.get("/schedule/:userId", (req, res) => {
+    const userId = req.params.userId || new ObjectId('678031343d60aaae39c8d701');
+
+    // Run the Python script with the userId as an argument
+    const pythonProcess = spawn("python", [path.resolve("./scripts/workload_scheduler.py"), userId]);
+
+    let pythonOutput = "";
+
+    // Capture data output from Python
+    pythonProcess.stdout.on("data", (data) => {
+        pythonOutput += data.toString();
+    });
+
+    // Handle Python errors
+    pythonProcess.stderr.on("data", (data) => {
+        console.error(`Python Error: ${data.toString()}`);
+    });
+
+    // Send the response when Python script finishes
+    pythonProcess.on("close", (code) => {
+        if (code === 0) {
+            try {
+                const scheduleJson = JSON.parse(pythonOutput);
+                res.status(200).json(scheduleJson);
+            } catch (err) {
+                res.status(500).send("Error parsing Python output.");
+            }
+        } else {
+            res.status(500).send("Failed to generate schedule.");
+        }
+    });
+});
+
+
 // const upload = multer({dest: "uploads/"});
 
 // app.post("/upload", upload.single("file"), (req, res) => {

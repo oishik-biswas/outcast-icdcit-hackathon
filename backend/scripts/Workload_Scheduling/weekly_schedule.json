@@ -1,0 +1,191 @@
+{
+  "MONDAY": [
+    {
+      "start_time": "9:00 AM",
+      "end_time": "12:00 PM",
+      "task": "Surgeries (3 hours)"
+    },
+    {
+      "start_time": "12:00 PM",
+      "end_time": "1:00 PM",
+      "task": "Patient Consultations (1 hour)"
+    },
+    {
+      "start_time": "1:00 PM",
+      "end_time": "2:00 PM",
+      "task": "Lunch Break"
+    },
+    {
+      "start_time": "2:00 PM",
+      "end_time": "4:00 PM",
+      "task": "Surgeries (2 hours)"
+    },
+    {
+      "start_time": "4:00 PM",
+      "end_time": "5:00 PM",
+      "task": "Follow-up Calls (1 hour)"
+    }
+  ],
+  "TUESDAY": [
+    {
+      "start_time": "9:00 AM",
+      "end_time": "12:00 PM",
+      "task": "Emergency Care (3 hours)"
+    },
+    {
+      "start_time": "12:00 PM",
+      "end_time": "1:00 PM",
+      "task": "Medical Examinations (1 hour)"
+    },
+    {
+      "start_time": "1:00 PM",
+      "end_time": "2:00 PM",
+      "task": "Lunch Break"
+    },
+    {
+      "start_time": "2:00 PM",
+      "end_time": "4:00 PM",
+      "task": "Emergency Care (2 hours)"
+    },
+    {
+      "start_time": "4:00 PM",
+      "end_time": "5:00 PM",
+      "task": "Prescription Reviews (1 hour)"
+    }
+  ],
+  "WEDNESDAY": [
+    {
+      "start_time": "9:00 AM",
+      "end_time": "12:00 PM",
+      "task": "Patient Consultations (3 hours)"
+    },
+    {
+      "start_time": "12:00 PM",
+      "end_time": "1:00 PM",
+      "task": "Patient Admissions (1 hour)"
+    },
+    {
+      "start_time": "1:00 PM",
+      "end_time": "2:00 PM",
+      "task": "Lunch Break"
+    },
+    {
+      "start_time": "2:00 PM",
+      "end_time": "4:00 PM",
+      "task": "Health Screenings (2 hours)"
+    },
+    {
+      "start_time": "4:00 PM",
+      "end_time": "5:00 PM",
+      "task": "Discharge Planning (1 hour)"
+    }
+  ],
+  "THURSDAY": [
+    {
+      "start_time": "9:00 AM",
+      "end_time": "12:00 PM",
+      "task": "Medical Research (3 hours)"
+    },
+    {
+      "start_time": "12:00 PM",
+      "end_time": "1:00 PM",
+      "task": "Telemedicine Appointments (1 hour)"
+    },
+    {
+      "start_time": "1:00 PM",
+      "end_time": "2:00 PM",
+      "task": "Lunch Break"
+    },
+    {
+      "start_time": "2:00 PM",
+      "end_time": "4:00 PM",
+      "task": "Medical Research (2 hours)"
+    },
+    {
+      "start_time": "4:00 PM",
+      "end_time": "5:00 PM",
+      "task": "Patient Education (1 hour)"
+    }
+  ],
+  "FRIDAY": [
+    {
+      "start_time": "9:00 AM",
+      "end_time": "12:00 PM",
+      "task": "Surgeries (3 hours)"
+    },
+    {
+      "start_time": "12:00 PM",
+      "end_time": "1:00 PM",
+      "task": "Staff Meetings (1 hour)"
+    },
+    {
+      "start_time": "1:00 PM",
+      "end_time": "2:00 PM",
+      "task": "Lunch Break"
+    },
+    {
+      "start_time": "2:00 PM",
+      "end_time": "4:00 PM",
+      "task": "Surgeries (2 hours)"
+    },
+    {
+      "start_time": "4:00 PM",
+      "end_time": "5:00 PM",
+      "task": "Administrative Duties (1 hour)"
+    }
+  ],
+  "SATURDAY": [
+    {
+      "start_time": "9:00 AM",
+      "end_time": "12:00 PM",
+      "task": "Emergency Care (3 hours)"
+    },
+    {
+      "start_time": "12:00 PM",
+      "end_time": "1:00 PM",
+      "task": "Training Sessions (1 hour)"
+    },
+    {
+      "start_time": "1:00 PM",
+      "end_time": "2:00 PM",
+      "task": "Lunch Break"
+    },
+    {
+      "start_time": "2:00 PM",
+      "end_time": "4:00 PM",
+      "task": "Emergency Care (2 hours)"
+    },
+    {
+      "start_time": "4:00 PM",
+      "end_time": "5:00 PM",
+      "task": "Follow-up Calls (1 hour)"
+    }
+  ],
+  "SUNDAY": [
+    {
+      "start_time": "9:00 AM",
+      "end_time": "12:00 PM",
+      "task": "Patient Consultations (3 hours)"
+    },
+    {
+      "start_time": "12:00 PM",
+      "end_time": "1:00 PM",
+      "task": "Medical Examinations (1 hour)"
+    },
+    {
+      "start_time": "1:00 PM",
+      "end_time": "2:00 PM",
+      "task": "Lunch Break"
+    },
+    {
+      "start_time": "2:00 PM",
+      "end_time": "4:00 PM",
+      "task": "Health Screenings (2 hours)"
+    },
+    {
+      "start_time": "4:00 PM",
+      "end_time": "5:00 PM",
+      "task": "Discharge Planning (1 hour)"
+    }
+  ]
+}
