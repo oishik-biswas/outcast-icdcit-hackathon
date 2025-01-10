@@ -55,9 +55,10 @@ const Register = () => {
         console.log(response.data);
      // console.log(response.data.fullName.firstName);
       alert("Registration successful!");
-      navigate("/home");
+      navigate("/login");
+      localStorage.setItem('skills', formData.desiredskills);
 
-      setFormData({ email: "", firstName: "", lastName: "", password: "" });
+      setFormData({ email: "", firstName: "", lastName: "", password: "",desiredskills:"" });
       setErrors({});
     } catch (error) {
       if (error.response) {

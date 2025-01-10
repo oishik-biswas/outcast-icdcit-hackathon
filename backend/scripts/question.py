@@ -1,23 +1,24 @@
 import requests
-from bs4 import BeautifulSoup
-import random
 import json
 import os
+from dotenv import load_dotenv
 
-# Set your Groq API key
+# Load environment variables
+load_dotenv()
 groq_api_key = os.getenv("GROQ_API_KEY")
+if not groq_api_key:
+    print("Error: GROQ_API_KEY is not set. Please set the API key as an environment variable.")
+    exit()
 
-def generate_question_and_distractors(description, category):
-    # Define the API endpoint
+def call_groq_api(description, category):
+    """
+    Calls the Groq API to generate a multiple-choice question based on a course description and category.
+    """
     url = "https://api.groq.com/openai/v1/chat/completions"
-
-    # Define the headers for the request
     headers = {
         'Authorization': f'Bearer {groq_api_key}',
         'Content-Type': 'application/json'
     }
-
-    # Define the payload for the request
     payload = {
         "messages": [
             {"role": "system", "content": "You are an educational content summarizer."},
@@ -28,202 +29,76 @@ def generate_question_and_distractors(description, category):
         "temperature": 0.7
     }
 
-    # Make the POST request to the API
     try:
         response = requests.post(url, headers=headers, json=payload, timeout=10)
-        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
+        response.raise_for_status()
         completion_data = response.json()
         question = completion_data.get('choices', [{}])[0].get('message', {}).get('content', '').strip()
+        return question
     except requests.exceptions.RequestException as e:
-        print(f"Error connecting to Groq API: {e}")
-        return None, None, None  # Return gracefully in case of an error
+        print(f"Error calling Groq API: {e}")
+        return None
 
-    # Simplified correct answer and distractors (replace with better logic if needed)
-    words = description.split()
-    correct_answer = words[0]  # Simplified correct answer
-    distractors = words[1:4]  # Simplified distractors
-
-    # Ensure we have enough distractors
-    while len(distractors) < 3:
-        distractors.append("Random Answer")
-
-    distractors = distractors[:3]
-
-    # Combine options
-    options = distractors + [correct_answer]
-    random.shuffle(options)
-
-    return question, options, correct_answer
-
-def scrape_course_details(coursera_url):
+def generate_questions_from_json(json_file):
+    """
+    Reads courses from a JSON file and generates MCQs using the Groq API.
+    """
     try:
-        # Send a GET request to fetch the content of the Coursera page
-        response = requests.get(coursera_url)
-        response.raise_for_status()  # Raise an HTTPError for bad responses (4xx and 5xx)
-        soup = BeautifulSoup(response.text, 'html.parser')
+        with open(json_file, "r") as file:
+            data = json.load(file)
+    except FileNotFoundError:
+        print(f"Error: The file '{json_file}' does not exist.")
+        return
+    except json.JSONDecodeError:
+        print("Error: Failed to parse the JSON file.")
+        return
 
-        # Extract the course description (from meta tag or other locations)
-        description_tag = soup.find('meta', {'name': 'description'})
-        description = description_tag['content'] if description_tag else "Description not available"
+    questions_output = []
 
-        # Extract the course category (may not always exist)
-        category_tag = soup.find('meta', {'property': 'og:title'})  # Example for title-based category
-        category = category_tag['content'] if category_tag else "Uncategorized"
+    for course in data.get("courses", []):
+        category = course.get("category", "Uncategorized")
+        description = course.get("description", "No description available.")
 
-        return description, category
-    except requests.exceptions.HTTPError as e:
-        print(f"HTTP error for {coursera_url}: {e}")
-        return None, None
-    except Exception as e:
-        print(f"An unexpected error occurred while scraping {coursera_url}: {e}")
-        return None, None
+        print(f"Generating question for category: {category}")
+        question = call_groq_api(description, category)
 
-def save_questions_to_json(questions, category, output_file="generated_mcqs.json"):
-    """Save generated questions to JSON file"""
-    output = {
-        "category": category,
-        #"timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "questions": questions
-    }
-    
+        if question:
+            questions_output.append({
+                "category": category,
+                "description": description,
+                "question": question
+            })
+            print(f"Generated question:\n{question}\n")
+        else:
+            print(f"Failed to generate a question for category: {category}")
+
+    return questions_output
+
+def save_questions_to_json(questions, output_file="generated_mcqs.json"):
+    """
+    Saves the generated questions to a JSON file.
+    """
     try:
         with open(output_file, 'w') as f:
-            json.dump(output, f, indent=2)
+            json.dump(questions, f, indent=2)
         print(f"\nQuestions saved to {output_file}")
     except Exception as e:
         print(f"Error saving questions: {e}")
 
-def generate_questions_from_category(data, target_category):
-    count = 0
-    max_questions = 5
-    used_questions = set()  # Track used questions
-    generated_questions = []
-    
-    # Define diverse question templates
-    generic_templates = [
-        {
-            "question": f"What is a primary focus of {target_category}?",
-            "options": [
-                "Patient care and assessment",
-                "Medical documentation",
-                "Healthcare technology",
-                "Clinical procedures"
-            ],
-            "correct": "Patient care and assessment"
-        },
-        {
-            "question": f"Which skill is most essential for {target_category} professionals?",
-            "options": [
-                "Critical thinking",
-                "Time management",
-                "Communication",
-                "Technical expertise"
-            ],
-            "correct": "Critical thinking"
-        },
-        {
-            "question": f"What is a key responsibility in {target_category}?",
-            "options": [
-                "Patient monitoring",
-                "Administrative tasks",
-                "Research activities",
-                "Equipment maintenance"
-            ],
-            "correct": "Patient monitoring"
-        },
-        {
-            "question": f"Which quality is most important for {target_category} practitioners?",
-            "options": [
-                "Attention to detail",
-                "Physical strength",
-                "Computer skills",
-                "Marketing ability"
-            ],
-            "correct": "Attention to detail"
-        },
-        {
-            "question": f"What best describes the role of {target_category} in healthcare?",
-            "options": [
-                "Direct patient care",
-                "Data analysis",
-                "Equipment sales",
-                "Facility management"
-            ],
-            "correct": "Direct patient care"
-        }
-    ]
-
-    for course in data["courses"]:
-            if course["category"].lower() != target_category.lower():
-                continue
-
-            description = course.get("description", "")
-            question, options, correct_answer = generate_question_and_distractors(description, target_category)
-
-            if question and question not in used_questions:
-                used_questions.add(question)
-                # Add question to generated_questions list
-                generated_questions.append({
-                    "question": question,
-                    "options": options,
-                    "correct_answer": correct_answer
-                })
-                
-                print(f"Category: {target_category}")
-                print(f"Question: {question}")
-                print("Options:")
-                for i, option in enumerate(options, 1):
-                    print(f"{i}. {option}")
-                print(f"Correct Answer: {correct_answer}\n")
-                count += 1
-
-            if count >= max_questions:
-                break
-    # Fill remaining questions with templates
-    template_index = 0
-    while count < max_questions and template_index < len(generic_templates):
-        template = generic_templates[template_index]
-        if template["question"] not in used_questions:
-            used_questions.add(template["question"])
-            options = template["options"].copy()
-            random.shuffle(options)
-            
-            # Add template question to generated_questions list
-            generated_questions.append({
-                "question": template["question"],
-                "options": options,
-                "correct_answer": template["correct"]
-            })
-            
-            print(f"Category: {target_category}")
-            print(f"Question: {template['question']}")
-            print("Options:")
-            for i, option in enumerate(options, 1):
-                print(f"{i}. {option}")
-            print(f"Correct Answer: {template['correct']}\n")
-            count += 1
-            
-        template_index += 1
-    
-    # Save all generated questions to JSON
-    save_questions_to_json(generated_questions, target_category)
-
-
 def main():
+<<<<<<< HEAD
     # Load the JSON file
     file_path = "question_input.json"  # Update this path if necessary
+=======
+    input_file = "mcq_question/question_input.json"  # Path to your input JSON file
+    output_file = "generated_mcqs.json"  # Path to save the generated questions
+>>>>>>> 427bc02aefcdf7a7e1c66f90d01c3b5f0413b325
 
-    if not os.path.exists(file_path):
-        print(f"Error: The file '{file_path}' does not exist. Please ensure it is in the correct location.")
-        return
+    print("Reading input file and generating questions...")
+    questions = generate_questions_from_json(input_file)
 
-    with open(file_path, "r") as file:
-        data = json.load(file)
-
-    # Prompt user for the target category
-    target_category = input("Enter the category for which you want to generate questions: ").strip()
-    print(f"Generating up to 5 questions for the category: {target_category}")
-    generate_questions_from_category(data, target_category)
+    if questions:
+        save_questions_to_json(questions, output_file)
 
 if __name__ == "__main__":
     main()
