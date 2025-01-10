@@ -117,7 +117,7 @@ const Register = () => {
               htmlFor="desiredskills"
               className="block text-gray-700 font-medium mb-2"
             >
-              Desired skills
+              Job
             </label>
             <input
               type="text"

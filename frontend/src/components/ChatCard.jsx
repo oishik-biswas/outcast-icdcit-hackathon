@@ -8,7 +8,8 @@ function ChatCard() {
   const navigate=useNavigate();
   const tochat=(e)=>{
     e.preventDefault();
-    navigate("/chatpage");
+    //navigate("/chatpage");
+    window.location.href = "http://localhost:5174";
  };
   return (
     

@@ -20,7 +20,7 @@ function SideBar() {
   };
 
   const tochat=(e)=>{
-    navigate("/chatpage");
+    window.location.href = "http://localhost:5174";
   };
 
   const totask=(e)=>{
