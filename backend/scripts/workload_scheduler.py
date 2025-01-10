@@ -239,6 +239,7 @@ def fetch_tasks_from_mongo(user_id: str) -> list:
 
         # Fetch tasks for the given user
         tasks = list(collection.find({"userId": user_id}, {"_id": 0, "name": 1, "numberOfHours": 1}))
+        print(tasks)
         return tasks
     except Exception as e:
         print(f"Error fetching tasks from MongoDB: {e}")
@@ -328,6 +329,7 @@ def convert_to_json(schedule: str) -> dict:
 
 
 def main(user_id):
+    print("Hello")
     # Fetch tasks from MongoDB for the given user
     tasks = fetch_tasks_from_mongo(user_id)
 
@@ -337,10 +339,12 @@ def main(user_id):
 
     # Query GROQ API for schedule
     schedule = query_groq_for_schedule(tasks)
+    print(schedule)
 
     if schedule:
         # Convert schedule to JSON
         schedule_json = convert_to_json(schedule)
+        print(schedule_json)
         print(json.dumps(schedule_json))  # Output as JSON string for Node.js
     else:
         print("Failed to generate schedule.")
