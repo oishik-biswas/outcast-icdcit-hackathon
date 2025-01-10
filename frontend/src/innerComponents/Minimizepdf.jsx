@@ -36,7 +36,7 @@ function MinimizedPDF() {
       });
 
       const result = await response.json();
-
+    
       if (response.ok) {
         setResponse(`✅ Success: ${result.message || 'File uploaded successfully!'}`);
         setSummary(result.summary || 'No summary provided.'); // Update summary

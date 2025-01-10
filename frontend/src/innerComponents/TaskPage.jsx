@@ -1,13 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import SideBar from "../components/SideBar";
 
 const TaskPage = () => {
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const currentDay = dayNames[new Date().getDay()];
-
   const [tasks, setTasks] = useState({});
-  const [selectedDay, setSelectedDay] = useState(currentDay);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
@@ -38,7 +33,7 @@ const TaskPage = () => {
       .get(`http://localhost:4000/schedule/${userId}`)
       .then((response) => {
         console.log("Tasks fetched successfully:", response.data);
-        setTasks(response.data); // Assign the returned JSON to tasks
+        setTasks(response.data); // Set the entire response as tasks
         setLoading(false);
       })
       .catch((error) => {
@@ -48,63 +43,39 @@ const TaskPage = () => {
       });
   }, []);
 
-  const handleDayClick = (day) => {
-    setSelectedDay(day);
-  };
-
   return (
-    <div className="flex bg-[#d4f3fd] h-[100vh]">
-      <div className="hidden md:block fixed">
-        <SideBar />
-      </div>
-      <div className="ml-[8rem] w-full p-6">
-        <div className="font-sans text-gray-700">
-          <h1 className="text-3xl font-bold mb-6">Weekly Schedule</h1>
-          <div className="flex flex-wrap gap-4 mb-6">
-            {dayNames.map((day) => (
-              <button
-                key={day}
-                onClick={() => handleDayClick(day)}
-                className={`px-6 py-3 border rounded-lg shadow-md transition duration-300 ${
-                  selectedDay === day
-                    ? "bg-[rgb(127,127,250)] text-white border-[rgb(120,120,244)]"
-                    : "bg-white text-black border-gray-300 hover:bg-blue-100 hover:shadow-lg"
-                }`}
-              >
-                {day}
-              </button>
-            ))}
-          </div>
-          <div>
-            {loading ? (
-              <h2 className="text-xl text-gray-500">Loading tasks...</h2>
-            ) : error ? (
-              <h2 className="text-xl text-red-500">{error}</h2>
-            ) : (
-              <div>
-                <h2 className="text-xl font-semibold mb-4">Tasks for {selectedDay}:</h2>
-                <ul className="space-y-4">
-                  {tasks[selectedDay]?.length ? (
-                    tasks[selectedDay].map((taskData, index) => (
-                      <li
-                        key={index}
-                        className="bg-gradient-to-l from-[rgb(170,170,247)] via-[rgb(190,190,254)] to-[rgb(194,194,250)] p-4 rounded-lg shadow-2xl hover:shadow-3xl transition duration-300"
-                      >
-                        <div className="font-semibold">{taskData.task}</div>
-                        <div className="text-sm text-gray-600">
-                          {taskData.from} - {taskData.to}
-                        </div>
-                      </li>
-                    ))
-                  ) : (
-                    <li className="text-gray-500">No tasks for {selectedDay}</li>
-                  )}
-                </ul>
-              </div>
-            )}
-          </div>
+    <div className="bg-[#d4f3fd] min-h-screen p-6">
+      <h1 className="text-3xl font-bold text-center text-blue-600 mb-8">Weekly Tasks</h1>
+      {loading ? (
+        <p className="text-center text-gray-500 text-lg">Loading tasks...</p>
+      ) : error ? (
+        <p className="text-center text-red-500 text-lg">{error}</p>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(tasks).map(([day, taskList]) => (
+            <div
+              key={day}
+              className="bg-white shadow-md rounded-lg p-6 border-t-4 border-blue-500"
+            >
+              <h2 className="text-xl font-semibold text-blue-600 mb-4">{day}</h2>
+              <ul className="space-y-3">
+                {taskList.length > 0 ? (
+                  taskList.map((task, index) => (
+                    <li
+                      key={index}
+                      className="bg-gray-50 p-3 rounded shadow-sm border border-gray-200 text-gray-700"
+                    >
+                      {task}
+                    </li>
+                  ))
+                ) : (
+                  <li className="text-gray-500 italic">No tasks for this day.</li>
+                )}
+              </ul>
+            </div>
+          ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };
