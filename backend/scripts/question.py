@@ -211,7 +211,7 @@ def generate_questions_from_category(data, target_category):
 
 def main():
     # Load the JSON file
-    file_path = "mcq_question/file.json"  # Update this path if necessary
+    file_path = "question_input.json"  # Update this path if necessary
 
     if not os.path.exists(file_path):
         print(f"Error: The file '{file_path}' does not exist. Please ensure it is in the correct location.")

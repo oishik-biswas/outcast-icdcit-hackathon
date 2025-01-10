@@ -1,0 +1,55 @@
+{
+  "category": "cardiology",
+  "questions": [
+    {
+      "question": "What is a primary focus of cardiology?",
+      "options": [
+        "Clinical procedures",
+        "Patient care and assessment",
+        "Healthcare technology",
+        "Medical documentation"
+      ],
+      "correct_answer": "Patient care and assessment"
+    },
+    {
+      "question": "Which skill is most essential for cardiology professionals?",
+      "options": [
+        "Time management",
+        "Communication",
+        "Critical thinking",
+        "Technical expertise"
+      ],
+      "correct_answer": "Critical thinking"
+    },
+    {
+      "question": "What is a key responsibility in cardiology?",
+      "options": [
+        "Patient monitoring",
+        "Research activities",
+        "Equipment maintenance",
+        "Administrative tasks"
+      ],
+      "correct_answer": "Patient monitoring"
+    },
+    {
+      "question": "Which quality is most important for cardiology practitioners?",
+      "options": [
+        "Computer skills",
+        "Attention to detail",
+        "Marketing ability",
+        "Physical strength"
+      ],
+      "correct_answer": "Attention to detail"
+    },
+    {
+      "question": "What best describes the role of cardiology in healthcare?",
+      "options": [
+        "Facility management",
+        "Equipment sales",
+        "Data analysis",
+        "Direct patient care"
+      ],
+      "correct_answer": "Direct patient care"
+    }
+  ]
+}
