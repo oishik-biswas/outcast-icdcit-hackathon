@@ -1,0 +1,75 @@
+{
+    "courses": [
+      {
+        
+        "category": "Cardiology",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/learn/infarction",
+        "description": "Learn the fundamentals of healthcare systems and management."
+      },
+      {
+        
+        "category": "Physician",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/learn/health-after-cancer-cancer-survivorship-for-primary-care",
+        "description": "Master essential clinical skills for effective patient care."
+      },
+      {
+        
+        "category": "Dietician",
+        "provider": "Coursera",
+        "url":"https://www.coursera.org/learn/food-and-health",
+        "description": "Explore the science behind healthy eating and diet planning."
+      },
+      {
+        
+        "category": "Public Health",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/learn/global-health",
+        "description": "Understand global health challenges and solutions."
+      },
+      {
+       
+        "category": "Health IT",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/specializations/health-informatics",
+        "description": "Learn how technology is transforming healthcare delivery."
+      },
+      {
+        
+        "category": "Psychology",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/learn/introduction-psychology",
+        "description": "Explore mental health concepts and strategies for well-being."
+      },
+      {
+       
+        "category": "Pharmacy",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/specializations/pharmacy-technician-fundamentals",
+        "description": "Understand the process of developing pharmaceutical products."
+      },
+      {
+        
+        "category": "Physical Therapy",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/learn/physical-therapy-exercise",
+        "description": "Discover how exercise affects the human body and supports rehabilitation."
+      },
+      {
+        
+        "category": "Healthcare Management",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/learn/wo-pmo-healthcareinnovation",
+        "description": "Develop leadership skills for managing healthcare teams."
+      },
+      {
+        
+        "category": "Epidemiology",
+        "provider": "Coursera",
+        "url": "https://www.coursera.org/learn/epidemiology",
+        "description": "Learn how to investigate and manage health issues in populations."
+      }
+    ]
+  }
+  
