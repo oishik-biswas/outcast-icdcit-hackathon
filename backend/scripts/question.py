@@ -86,7 +86,7 @@ def save_questions_to_json(questions, output_file="generated_mcqs.json"):
         print(f"Error saving questions: {e}")
 
 def main():
-    input_file = "mcq_question/question_input.json"  # Path to your input JSON file
+    input_file = "question_input.json"  # Path to your input JSON file
     output_file = "generated_mcqs.json"  # Path to save the generated questions
 
     print("Reading input file and generating questions...")
