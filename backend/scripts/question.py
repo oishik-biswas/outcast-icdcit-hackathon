@@ -2,6 +2,7 @@ import requests
 import json
 import os
 from dotenv import load_dotenv
+import re
 
 # Load environment variables
 load_dotenv()
@@ -9,6 +10,45 @@ groq_api_key = os.getenv("GROQ_API_KEY")
 if not groq_api_key:
     print("Error: GROQ_API_KEY is not set. Please set the API key as an environment variable.")
     exit()
+
+def parse_mcq(raw_question):
+    """
+    Parses the raw MCQ text into structured components.
+    Returns a dictionary with question, options, and correct answer.
+    """
+    try:
+        # Split the content into question and answer section
+        parts = raw_question.split('\n\nCorrect answer: ')
+        if len(parts) != 2:
+            return None
+            
+        question_part, correct_answer = parts
+        
+        # Split question and options
+        lines = question_part.strip().split('\n')
+        question = lines[0].strip()
+        
+        # Extract options
+        options = {}
+        for line in lines[1:]:
+            if line.strip():
+                match = re.match(r'([A-D])\)(.*)', line.strip())
+                if match:
+                    option_letter, option_text = match.groups()
+                    options[option_letter] = option_text.strip()
+        
+        # Clean up correct answer
+        correct_answer = correct_answer.strip()
+        correct_letter = correct_answer[0]  # Extract just the letter
+        
+        return {
+            "question_text": question,
+            "options": options,
+            "correct_answer": correct_letter
+        }
+    except Exception as e:
+        print(f"Error parsing MCQ: {e}")
+        return None
 
 def call_groq_api(description, category):
     """
@@ -21,8 +61,8 @@ def call_groq_api(description, category):
     }
     payload = {
         "messages": [
-            {"role": "system", "content": "You are an educational content summarizer."},
-            {"role": "user", "content": f"Generate a multiple-choice question for the following course description in the field of {category}:\n\n{description}. Do not generate descriptions , just questions and options and correct answer"}        
+            {"role": "system", "content": "You are an educational content creator. Generate multiple-choice questions in this exact format:\n[Question]\nA) [Option]\nB) [Option]\nC) [Option]\nD) [Option]\n\nCorrect answer: [Letter]) [Correct option]"},
+            {"role": "user", "content": f"Generate a multiple-choice question for the following course description in the field of {category}:\n\n{description} with good content and grammar."}
         ],
         "model": "llama-3.3-70b-versatile",
         "max_tokens": 800,
@@ -33,8 +73,8 @@ def call_groq_api(description, category):
         response = requests.post(url, headers=headers, json=payload, timeout=10)
         response.raise_for_status()
         completion_data = response.json()
-        question = completion_data.get('choices', [{}])[0].get('message', {}).get('content', '').strip()
-        return question
+        raw_question = completion_data.get('choices', [{}])[0].get('message', {}).get('content', '').strip()
+        return parse_mcq(raw_question)
     except requests.exceptions.RequestException as e:
         print(f"Error calling Groq API: {e}")
         return None
@@ -60,15 +100,16 @@ def generate_questions_from_json(json_file):
         description = course.get("description", "No description available.")
 
         print(f"Generating question for category: {category}")
-        question = call_groq_api(description, category)
+        parsed_question = call_groq_api(description, category)
 
-        if question:
+        if parsed_question:
             questions_output.append({
                 "category": category,
-                #"description": description,
-                "question": question
+                "question_text": parsed_question["question_text"],
+                "options": parsed_question["options"],
+                "correct_answer": parsed_question["correct_answer"]
             })
-            print(f"Generated question:\n{question}\n")
+            print(f"Generated question for {category}")
         else:
             print(f"Failed to generate a question for category: {category}")
 
@@ -86,8 +127,8 @@ def save_questions_to_json(questions, output_file="generated_mcqs.json"):
         print(f"Error saving questions: {e}")
 
 def main():
-    input_file = "mcq_question/question_input.json"  # Path to your input JSON file
-    output_file = "generated_mcqs.json"  # Path to save the generated questions
+    input_file = "mcq_question/question_input.json"
+    output_file = "generated_mcqs.json"
 
     print("Reading input file and generating questions...")
     questions = generate_questions_from_json(input_file)
