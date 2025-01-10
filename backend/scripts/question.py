@@ -22,7 +22,7 @@ def call_groq_api(description, category):
     payload = {
         "messages": [
             {"role": "system", "content": "You are an educational content summarizer."},
-            {"role": "user", "content": f"Generate a multiple-choice question for the following course description in the field of {category}:\n\n{description}"}
+            {"role": "user", "content": f"Generate a multiple-choice question for the following course description in the field of {category}:\n\n{description}. Do not generate descriptions , just questions and options and correct answer"}        
         ],
         "model": "llama-3.3-70b-versatile",
         "max_tokens": 800,
@@ -65,7 +65,7 @@ def generate_questions_from_json(json_file):
         if question:
             questions_output.append({
                 "category": category,
-                "description": description,
+                #"description": description,
                 "question": question
             })
             print(f"Generated question:\n{question}\n")
@@ -86,7 +86,7 @@ def save_questions_to_json(questions, output_file="generated_mcqs.json"):
         print(f"Error saving questions: {e}")
 
 def main():
-    input_file = "question_input.json"  # Path to your input JSON file
+    input_file = "mcq_question/question_input.json"  # Path to your input JSON file
     output_file = "generated_mcqs.json"  # Path to save the generated questions
 
     print("Reading input file and generating questions...")
