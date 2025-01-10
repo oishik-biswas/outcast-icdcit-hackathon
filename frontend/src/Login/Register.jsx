@@ -8,6 +8,7 @@ const Register = () => {
     email: "",
     firstName: "",
     lastName: "",
+    desiredskills:"",
     password: "",
   });
   const [errors, setErrors] = useState({});
@@ -49,6 +50,7 @@ const Register = () => {
         email: formData.email,
         fullName: formData.firstName + " " + formData.lastName,
         password: formData.password,
+        skills:formData.desiredskills
       });
         console.log(response.data);
      // console.log(response.data.fullName.firstName);
@@ -104,6 +106,23 @@ const Register = () => {
               id="lastName"
               name="lastName"
               value={formData.lastName}
+              onChange={handleInputChange}
+              className="w-full px-4 py-2 border rounded-lg shadow-sm bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
+            />
+          </div>
+
+          <div>
+            <label
+              htmlFor="desiredskills"
+              className="block text-gray-700 font-medium mb-2"
+            >
+              Desired skills
+            </label>
+            <input
+              type="text"
+              id="desiredskills"
+              name="desiredskills"
+              value={formData.desiredskills}
               onChange={handleInputChange}
               className="w-full px-4 py-2 border rounded-lg shadow-sm bg-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-400"
             />
