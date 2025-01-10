@@ -1,18 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
-const mockQuestions = [
-  { question: 'What is 2 + 2?', options: ['3', '4', '5'], correct: '4' },
-  { question: 'What is the capital of France?', options: ['Berlin', 'Madrid', 'Paris'], correct: 'Paris' },
-  { question: 'Which is the largest planet?', options: ['Earth', 'Jupiter', 'Mars'], correct: 'Jupiter' },
-  { question: 'What is the square root of 16?', options: ['2', '4', '8'], correct: '4' },
-  { question: 'Who wrote "1984"?', options: ['George Orwell', 'Mark Twain', 'J.K. Rowling'], correct: 'George Orwell' },
-];
-
 function ExamPage({ topic, numQuestions, duration, showResult }) {
+  const [questions, setQuestions] = useState([]); // State to store fetched questions
   const [currentQuestion, setCurrentQuestion] = useState(0);
   const [answers, setAnswers] = useState([]);
   const [examTime, setExamTime] = useState(duration * 60 * 60); // Convert hours to seconds
   const [timer, setTimer] = useState(examTime);
+
+  // Fetch questions from the API
+  useEffect(() => {
+    const fetchQuestions = async () => {
+      try {
+        const response = await fetch(`http://localhost:4000/questions`); // Adjust the endpoint as needed
+        const data = await response.json();
+        if (Array.isArray(data)) {
+          setQuestions(data); // Assuming the API returns an array of questions
+        } else {
+          console.error('Failed to fetch questions');
+        }
+      } catch (error) {
+        console.error('Error fetching questions:', error);
+      }
+    };
+
+    fetchQuestions();
+  }, [topic]); // Fetch questions again if the topic changes
 
   useEffect(() => {
     if (timer > 0) {
@@ -27,7 +39,7 @@ function ExamPage({ topic, numQuestions, duration, showResult }) {
   }, [timer]);
 
   const handleAnswer = (selectedOption) => {
-    setAnswers([...answers, selectedOption]);
+    setAnswers((prevAnswers) => [...prevAnswers, selectedOption]);
     if (currentQuestion < numQuestions - 1) {
       setCurrentQuestion(currentQuestion + 1);
     } else {
@@ -38,12 +50,27 @@ function ExamPage({ topic, numQuestions, duration, showResult }) {
   const calculateResult = () => {
     let score = 0;
     answers.forEach((answer, index) => {
-      if (answer === mockQuestions[index].correct) {
+      if (answer === questions[index]?.correct) { // Check against the real questions
         score++;
       }
     });
     return { score, total: numQuestions };
   };
+
+  if (questions.length === 0) {
+    return <div>Loading questions...</div>; // Show a loading message while fetching questions
+  }
+
+  const currentQ = questions[currentQuestion]; // Get the current question object
+
+  // Safety checks before splitting the question text
+  const questionText = currentQ?.question.split('\n')[0] || 'No question available'; // Fallback if no question is found
+  const optionsRaw = currentQ?.question.split('\n').slice(1); // Get options without splitting yet
+
+  const options = optionsRaw?.map((line) => {
+    const optionText = line.split(')')[1]?.trim(); // Safely split and trim the option
+    return optionText ? optionText : null; // Only return valid options
+  }).filter(Boolean); // Filter out any null values if there's an issue with the splitting
 
   return (
     <div className="exam-container bg-white p-6 rounded-lg shadow-lg max-w-3xl mx-auto">
@@ -53,9 +80,9 @@ function ExamPage({ topic, numQuestions, duration, showResult }) {
       </div>
 
       <div className="question-container mb-6">
-        <div className="question text-lg font-semibold mb-4">{mockQuestions[currentQuestion].question}</div>
+        <div className="question text-lg font-semibold mb-4">{questionText}</div>
         <div className="options space-y-3">
-          {mockQuestions[currentQuestion].options.map((option, index) => (
+          {options && options.map((option, index) => (
             <button
               key={index}
               onClick={() => handleAnswer(option)}
