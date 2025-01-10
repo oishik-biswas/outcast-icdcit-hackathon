@@ -220,6 +220,7 @@ def main():
         return
 
     skills_input = sys.argv[1]
+    # skills_input = "Physiology,Anatomy,Pathology"
     skills = [skill.strip() for skill in skills_input.split(",")]
 
     scraper = CourseScraper()
